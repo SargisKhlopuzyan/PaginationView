@@ -6,11 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.sargis.khlopuzyan.pagination.ui.NumericPaginationGeneric
+import com.sargis.khlopuzyan.pagination.ui.NumericPaginationWithBackwardAndForward
+import com.sargis.khlopuzyan.pagination.ui.PaginationUiItemsChainStyle
 import com.sargis.khlopuzyan.pagination.ui.theme.PaginationTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +23,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    NumericPaginationGeneric()
+                    NumericPaginationWithBackwardAndForward(PaginationUiItemsChainStyle.SPREAD)
+//                    NumericPagination()
                 }
             }
         }
@@ -34,6 +35,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     PaginationTheme {
-        NumericPaginationGeneric()
+        NumericPaginationWithBackwardAndForward(PaginationUiItemsChainStyle.SPREAD)
+//        NumericPagination()
     }
 }
