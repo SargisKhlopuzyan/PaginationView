@@ -1,6 +1,7 @@
 package com.sargis.khlopuzyan.pagination
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -13,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sargis.khlopuzyan.pagination.ui.Pagination
+import com.sargis.khlopuzyan.pagination.ui.PaginationView
 import com.sargis.khlopuzyan.pagination.ui.PaginationUiItemsChainStyle
 import com.sargis.khlopuzyan.pagination.ui.theme.PaginationTheme
 
@@ -31,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     Column {
 
                         val paginationContainerHeight = 40.dp
-                        val paginationContainerWidth = 440.dp
+                        val paginationContainerWidth = 640.dp
 
                         Box(
                             modifier = Modifier
@@ -47,7 +48,9 @@ class MainActivity : ComponentActivity() {
 //                                .fillMaxWidth(),
                             contentAlignment = Alignment.Center
                         ) {
-                            Pagination(PaginationUiItemsChainStyle.PACKED)
+                            PaginationView(paginationUiItemsChainStyle = PaginationUiItemsChainStyle.PACKED) { page ->
+                                Log.e("PAGINATION_VIEW", "page $page clicked")
+                            }
                         }
                     }
                 }
@@ -60,6 +63,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     PaginationTheme {
-        Pagination(PaginationUiItemsChainStyle.PACKED)
+        PaginationView(paginationUiItemsChainStyle = PaginationUiItemsChainStyle.PACKED) { page ->
+            Log.e("PAGINATION_VIEW", "page $page clicked")
+        }
     }
 }

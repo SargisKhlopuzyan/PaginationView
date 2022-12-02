@@ -10,6 +10,12 @@
     <dimen name="pagination_item_height">36dp</dimen>
     <dimen name="pagination_item_width">36dp</dimen>
 
+    <dimen name="backward_or_forward_item_container_width">40dp</dimen>
+    <dimen name="backward_or_forward_item_container_height">40dp</dimen>
+
+    <dimen name="backward_or_forward_item_width">36dp</dimen>
+    <dimen name="backward_or_forward_item_height">36dp</dimen>
+
     <dimen name="space_between_pagination_page_items">10dp</dimen>
     <dimen name="space_between_backward_or_forward_item_and_pagination_page_item">6dp</dimen>
 
