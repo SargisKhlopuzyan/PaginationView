@@ -4,11 +4,11 @@
     <dimen name="number_pagination_item_border_stroke">1.5dp</dimen>
     <dimen name="number_pagination_item_rounded_corner">8dp</dimen>
 
-    <dimen name="pagination_item_container_height">40dp</dimen>
-    <dimen name="pagination_item_container_width">40dp</dimen>
+    <dimen name="number_pagination_item_container_height">40dp</dimen>
+    <dimen name="number_pagination_item_container_width">40dp</dimen>
 
-    <dimen name="pagination_item_height">36dp</dimen>
-    <dimen name="pagination_item_width">36dp</dimen>
+    <dimen name="number_pagination_item_height">36dp</dimen>
+    <dimen name="number_pagination_item_width">36dp</dimen>
 
     <dimen name="backward_or_forward_item_container_width">40dp</dimen>
     <dimen name="backward_or_forward_item_container_height">40dp</dimen>
@@ -16,8 +16,11 @@
     <dimen name="backward_or_forward_item_width">36dp</dimen>
     <dimen name="backward_or_forward_item_height">36dp</dimen>
 
-    <dimen name="space_between_pagination_page_items">10dp</dimen>
-    <dimen name="space_between_backward_or_forward_item_and_pagination_page_item">6dp</dimen>
+    <dimen name="space_between_number_pagination_page_items">10dp</dimen>
+    <dimen name="space_between_backward_or_forward_item_and_number_pagination_page_item">6dp</dimen>
+
+    <dimen name="pagination_horizontal_space">24dp</dimen>
+    <dimen name="pagination_vertical_space">20dp</dimen>
 
     <dimen name="dp_14">14dp</dimen>
 

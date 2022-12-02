@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sargis.khlopuzyan.pagination.ui.PaginationView
 import com.sargis.khlopuzyan.pagination.ui.PaginationUiItemsChainStyle
+import com.sargis.khlopuzyan.pagination.ui.PaginationView
 import com.sargis.khlopuzyan.pagination.ui.theme.PaginationTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,24 +31,28 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Column {
 
-                        val paginationContainerHeight = 40.dp
-                        val paginationContainerWidth = 720.dp
+                        val paginationContainerHeight = 80.dp
+                        val paginationContainerWidth = 480.dp
+
+                        val itemsSize: Int = 110 //dataList: List<Int>,
+                        val selectedPageIndex: Int = 15 //currentPage: Int,
+                        val alwaysShowNumber: Boolean = false
+
+                        val paginationUiItemsChainStyle = PaginationUiItemsChainStyle.PACKED
 
                         Box(
                             modifier = Modifier
                                 .height(paginationContainerHeight)
                                 .width(paginationContainerWidth)
-                                .background(Color.Green)
-                        )
-
-                        Box(
-                            modifier = Modifier
-                                .height(paginationContainerHeight)
-                                .width(paginationContainerWidth),
-//                                .fillMaxWidth(),
+                                .background(Color(0x203F51B5)),
                             contentAlignment = Alignment.Center
                         ) {
-                            PaginationView(paginationUiItemsChainStyle = PaginationUiItemsChainStyle.PACKED) { page ->
+                            PaginationView(
+                                itemsSize = itemsSize,
+                                selectedPageIndex = selectedPageIndex,
+                                alwaysShowNumber = alwaysShowNumber,
+                                paginationUiItemsChainStyle = paginationUiItemsChainStyle,
+                            ) { page ->
                                 Log.e("PAGINATION_VIEW", "page $page clicked")
                             }
                         }
