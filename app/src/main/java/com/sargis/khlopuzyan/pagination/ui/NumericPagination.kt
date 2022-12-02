@@ -189,7 +189,6 @@ fun NumericPaginationWithBackwardAndForward(
         if (paginationState.pageUiItems.isNotEmpty()) {
 
             PaginationBackwardOrForwardItemCompose(
-                maxPagesCount,
                 selectedPosition = paginationState.selectedPosition,
                 spaceBetweenBackwardOrForwardItemAndPaginationPageItem = spaceBetweenBackwardOrForwardItemAndPaginationPageItem,
                 itemsSize = itemsSize,
@@ -228,7 +227,6 @@ fun NumericPaginationWithBackwardAndForward(
             }
 
             PaginationBackwardOrForwardItemCompose(
-                maxPagesCount,
                 selectedPosition = paginationState.selectedPosition,
                 spaceBetweenBackwardOrForwardItemAndPaginationPageItem = spaceBetweenBackwardOrForwardItemAndPaginationPageItem,
                 itemsSize = itemsSize,
@@ -321,9 +319,9 @@ fun initPaginationUiItems(
 ): List<PageUiItem> {
 
     //TODO
-    if (maxPagesCount < 7) {
-        return mutableListOf()
-    }
+//    if (maxPagesCount < 7) {
+//        return mutableListOf()
+//    }
 
     val paginationItems = mutableListOf<PageUiItem>()
 
@@ -563,7 +561,6 @@ fun PageDotItemCompose(
 
 @Composable
 fun PaginationBackwardOrForwardItemCompose(
-    maxPagesCount: Int,
     modifier: Modifier = Modifier,
     selectedPosition: Int,
     spaceBetweenBackwardOrForwardItemAndPaginationPageItem: Dp,

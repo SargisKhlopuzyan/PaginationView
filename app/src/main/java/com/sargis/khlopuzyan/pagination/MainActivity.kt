@@ -30,22 +30,20 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Column {
 
-                        Box(
-                            modifier = Modifier
-                                .height(40.dp)
-//                                .width(widthDps.dp)
-                                .width((2020 / 2.75).dp)
-                                .background(Color.Green),
-                            contentAlignment = Alignment.Center
-                        ) {
-
-                        }
+                        val paginationContainerHeight = 40.dp
+                        val paginationContainerWidth = 440.dp
 
                         Box(
                             modifier = Modifier
-                                .height(40.dp)
-//                                .width((2020 / 2.75).dp),
-                                .width(200.dp),
+                                .height(paginationContainerHeight)
+                                .width(paginationContainerWidth)
+                                .background(Color.Green)
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .height(paginationContainerHeight)
+                                .width(paginationContainerWidth),
 //                                .fillMaxWidth(),
                             contentAlignment = Alignment.Center
                         ) {
