@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     Column {
 
                         val paginationContainerHeight = 40.dp
-                        val paginationContainerWidth = 640.dp
+                        val paginationContainerWidth = 720.dp
 
                         Box(
                             modifier = Modifier
