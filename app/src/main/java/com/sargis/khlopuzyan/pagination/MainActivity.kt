@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sargis.khlopuzyan.pagination.ui.PaginationUiItemsChainStyle
@@ -31,25 +32,26 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Column {
 
-                        val paginationContainerHeight = 80.dp
-                        val paginationContainerWidth = 480.dp
+                        val paginationViewHeight = dimensionResource(id = R.dimen.pagination_View_height)
+//                        val paginationViewHeight = 80.dp
+                        val paginationViewWidth = 480.dp
 
-                        val itemsSize: Int = 110 //dataList: List<Int>,
-                        val selectedPageIndex: Int = 15 //currentPage: Int,
-                        val alwaysShowNumber: Boolean = false
+                        val pagesCount = 5 //dataList: List<Int>,
+                        val selectedPagePosition = 1 //currentPage: Int,
+                        val alwaysShowNumber = false
 
-                        val paginationUiItemsChainStyle = PaginationUiItemsChainStyle.PACKED
+                        val paginationUiItemsChainStyle = PaginationUiItemsChainStyle.SPREAD
 
                         Box(
                             modifier = Modifier
-                                .height(paginationContainerHeight)
-                                .width(paginationContainerWidth)
+                                .height(paginationViewHeight)
+                                .width(paginationViewWidth)
                                 .background(Color(0x203F51B5)),
                             contentAlignment = Alignment.Center
                         ) {
                             PaginationView(
-                                itemsSize = itemsSize,
-                                selectedPageIndex = selectedPageIndex,
+                                itemsSize = pagesCount,
+                                selectedPageIndex = selectedPagePosition,
                                 alwaysShowNumber = alwaysShowNumber,
                                 paginationUiItemsChainStyle = paginationUiItemsChainStyle,
                             ) { page ->

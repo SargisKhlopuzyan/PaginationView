@@ -1,10 +1,7 @@
 package com.sargis.khlopuzyan.pagination.ui
 
 import android.util.Log
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -44,7 +41,7 @@ fun NumericPaginationPreview() {
 
 //*****************************************************************
 
-fun calculatePagesCount(
+fun calculateNumericPaginationUiPageItemsMaxCount(
     containerWidth: Float,
     numberPaginationItemContainerWidth: Float,
     backwardOrForwardItemContainerWidth: Float,
@@ -59,8 +56,22 @@ fun calculatePagesCount(
     return maxCount.toInt()
 }
 
+fun calculatePillPaginationUiPillItemsMaxCount(
+    containerWidth: Float,
+    pillPaginationPillItemContainerWidthIn: Float,
+    backwardOrForwardItemContainerWidth: Float,
+    spaceBetweenPillPaginationPillItems: Float,
+    spaceBetweenBackwardOrForwardItemAndPillPaginationPillItem: Float
+): Int {
+    val paginationItemsSpace =
+        containerWidth - 2 * (backwardOrForwardItemContainerWidth + spaceBetweenBackwardOrForwardItemAndPillPaginationPillItem)
+    val maxCount =
+        (paginationItemsSpace + spaceBetweenPillPaginationPillItems) / (pillPaginationPillItemContainerWidthIn + spaceBetweenPillPaginationPillItems)
 
-fun initPaginationUiItems(
+    return maxCount.toInt()
+}
+
+fun initNumericPaginationUiItems(
     itemsSize: Int,
     maxPagesCount: Int,
     selectedPageIndex: Int
@@ -187,17 +198,149 @@ fun initPaginationUiItems(
     return paginationItems
 }
 
+
+
+fun initPillPaginationUiItems(
+    itemsSize: Int,
+    maxPagesCount: Int,
+    selectedPageIndex: Int
+): List<PageUiItem> {
+
+    //TODO
+//    if (maxPagesCount < 7) {
+//        return mutableListOf()
+//    }
+
+    val paginationItems = mutableListOf<PageUiItem>()
+
+//    when {
+//        itemsSize <= maxPagesCount -> {
+
+            (1..if (maxPagesCount > itemsSize) itemsSize else maxPagesCount).forEach {
+
+                paginationItems.add(
+                    PillPageUiItem(
+                        page = it,
+                        uiPageIndex = it,
+                        isSelected = it == selectedPageIndex
+                    )
+                )
+
+            }
+
+//        }
+//        else -> {
+//
+//            // 1 2 3 4 5 6 |7| 8 9 10 11 ... 20
+//            if (selectedPageIndex <= roundUpDivision(maxPagesCount, 2)) {
+//
+//                (1..maxPagesCount - 2).forEach {
+//
+//                    paginationItems.add(
+//                        NumericPageUiItem(
+//                            page = it,
+//                            uiPageIndex = it,
+//                            isSelected = it == selectedPageIndex
+//                        )
+//                    )
+//
+//                }
+//
+//                paginationItems.add(
+//                    DotPageUiItem(uiPageIndex = maxPagesCount - 1)
+//                )
+//
+//                paginationItems.add(
+//                    NumericPageUiItem(
+//                        page = itemsSize,
+//                        uiPageIndex = maxPagesCount,
+//                        isSelected = false
+//                    )
+//                )
+//
+//                // 1 ... 10 11 12 13 |14| 15 16 17 18 19 20
+//            } else if (itemsSize - selectedPageIndex < roundUpDivision(maxPagesCount, 2)) {
+//
+//                paginationItems.add(
+//                    NumericPageUiItem(page = 1, uiPageIndex = 1, isSelected = false)
+//                )
+//
+//                paginationItems.add(
+//                    DotPageUiItem(uiPageIndex = 2)
+//                )
+//
+//                val diff = itemsSize - maxPagesCount
+//
+//                (3..maxPagesCount).forEach {
+//
+//                    paginationItems.add(
+//                        NumericPageUiItem(
+//                            page = it + diff,
+//                            uiPageIndex = it,
+//                            isSelected = it + diff == selectedPageIndex
+//                        )
+//                    )
+//
+//                }
+//
+//                // 1 ... 6 7 8 9 |10| 11 12 13 14 ... 20
+//            } else {
+//
+//                paginationItems.add(
+//                    NumericPageUiItem(page = 1, uiPageIndex = 1, isSelected = false)
+//                )
+//
+//                paginationItems.add(
+//                    DotPageUiItem(uiPageIndex = 2)
+//                )
+//
+//                val diff = selectedPageIndex - maxPagesCount / 2 - 1
+//
+//                (3..maxPagesCount - 2).forEach {
+//
+//                    paginationItems.add(
+//                        NumericPageUiItem(
+//                            page = it + diff,
+//                            uiPageIndex = it,
+//                            isSelected = it + diff == selectedPageIndex
+//                        )
+//                    )
+//
+//                }
+//
+//                paginationItems.add(
+//                    DotPageUiItem(uiPageIndex = maxPagesCount - 1)
+//                )
+//
+//                paginationItems.add(
+//                    NumericPageUiItem(
+//                        page = itemsSize,
+//                        uiPageIndex = maxPagesCount,
+//                        isSelected = false
+//                    )
+//                )
+//
+//            }
+//        }
+//    }
+
+    return paginationItems
+}
+
+
+
 private fun roundUpDivision(num: Int, divisor: Int): Int {
     return (num + divisor - 1) / divisor
 }
+
 
 //********************************************************************
 
 
 @Composable
 fun PaginationView(
-    itemsSize: Int = 10, //dataList: List<Int>,
-    selectedPageIndex: Int = 15, //currentPage: Int,
+    itemsSize: Int = 0, //dataList: List<Int>,
+    selectedPageIndex: Int = 0, //currentPage: Int,
     alwaysShowNumber: Boolean = false,
     paginationUiItemsChainStyle: PaginationUiItemsChainStyle,
     onPageClicked: (pageNumber: Int) -> Unit
@@ -207,11 +350,19 @@ fun PaginationView(
         mutableStateOf(-1)
     }
 
-    val paginationUiItems: List<PageUiItem> = initPaginationUiItems(
-        itemsSize = itemsSize,
-        maxPagesCount = maxPagesCount,
-        selectedPageIndex = selectedPageIndex
-    )
+    val paginationUiItems: List<PageUiItem> = if (itemsSize > 5 || alwaysShowNumber) {
+        initNumericPaginationUiItems(
+            itemsSize = itemsSize,
+            maxPagesCount = maxPagesCount,
+            selectedPageIndex = selectedPageIndex
+        )
+    } else {
+        initPillPaginationUiItems(
+            itemsSize = itemsSize,
+            maxPagesCount = maxPagesCount,
+            selectedPageIndex = selectedPageIndex
+        )
+    }
 
     var paginationState by remember {
         mutableStateOf(
@@ -224,6 +375,8 @@ fun PaginationView(
 
     Log.e("LOG_TAG", "NumericPaginationWithBackwardAndForward -> maxPagesCount : $maxPagesCount")
 
+
+    // NUMERIC PAGINATION
     val spaceBetweenNumberPaginationPageItems =
         dimensionResource(id = R.dimen.space_between_number_pagination_page_items)
     val spaceBetweenBackwardOrForwardItemAndNumberPaginationPageItem =
@@ -278,87 +431,168 @@ fun PaginationView(
 //    val numberPaginationItemHeightInPx =
 //        with(LocalDensity.current) { dimensionResource(id = R.dimen.number_pagination_item_height).toPx() }
 
+    // PILL PAGINATION
+
+    val pillPaginationPillItemContainerWidth =
+        dimensionResource(id = R.dimen.pill_pagination_pill_item_container_width)
+    val pillPaginationPillItemContainerHeight =
+        dimensionResource(id = R.dimen.pill_pagination_pill_item_container_height)
+
+    val pillPaginationPillItemWidth =
+        dimensionResource(id = R.dimen.pill_pagination_pill_item_width)
+    val pillPaginationPillItemHeight =
+        dimensionResource(id = R.dimen.pill_pagination_pill_item_height)
+
+    val spaceBetweenPillPaginationPillItems =
+        dimensionResource(id = R.dimen.space_between_pill_pagination_pill_items)
+
+    val pillPaginationPillItemContainerWidthInPx =
+        with(LocalDensity.current) { dimensionResource(id = R.dimen.pill_pagination_pill_item_container_width).toPx() }
+
+    val spaceBetweenPillPaginationPillItemsInPx =
+        with(LocalDensity.current) { dimensionResource(id = R.dimen.space_between_pill_pagination_pill_items).toPx() }
+
+    val spaceBetweenBackwardOrForwardItemAndPillPaginationPillItemInPx =
+        with(LocalDensity.current) { dimensionResource(id = R.dimen.space_between_backward_or_forward_item_and_number_pagination_page_item).toPx() }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = paginationHorizontalSpace, vertical = paginationVerticalSpace)
             .onGloballyPositioned { coordinates ->
-                // This will be the size of the Column.
-                coordinates.size
-                // The position of the Column relative to the application window.
-                coordinates.positionInWindow()
-                // The position of the Column relative to the Compose root.
-                coordinates.positionInRoot()
-                // These will be the alignment lines provided to the layout (empty here for Column).
-                coordinates.providedAlignmentLines
-                // This will be a LayoutCoordinates instance corresponding to the parent of Column.
-                coordinates.parentLayoutCoordinates
-
                 if (maxPagesCount < 0) {
 
                     val containerWidth = coordinates.size.width.dp.value
 
-                    val count = calculatePagesCount(
-                        containerWidth = containerWidth,
-                        numberPaginationItemContainerWidth = numberPaginationItemContainerWidthInPx,
-                        backwardOrForwardItemContainerWidth = backwardOrForwardItemContainerWidthInPx,
-                        spaceBetweenNumberPaginationPageItems = spaceBetweenNumberPaginationPageItemsInPx,
-                        spaceBetweenBackwardOrForwardItemAndNumberPaginationPageItem = spaceBetweenBackwardOrForwardItemAndNumberPaginationPageItemInPx
-                    )
+                    val maxCount = if (itemsSize > 5 || alwaysShowNumber) {
+                        calculateNumericPaginationUiPageItemsMaxCount(
+                            containerWidth = containerWidth,
+                            numberPaginationItemContainerWidth = numberPaginationItemContainerWidthInPx,
+                            backwardOrForwardItemContainerWidth = backwardOrForwardItemContainerWidthInPx,
+                            spaceBetweenNumberPaginationPageItems = spaceBetweenNumberPaginationPageItemsInPx,
+                            spaceBetweenBackwardOrForwardItemAndNumberPaginationPageItem = spaceBetweenBackwardOrForwardItemAndNumberPaginationPageItemInPx
+                        )
+                    } else {
+                        calculatePillPaginationUiPillItemsMaxCount(
+                            containerWidth = containerWidth,
+                            pillPaginationPillItemContainerWidthIn = pillPaginationPillItemContainerWidthInPx,
+                            backwardOrForwardItemContainerWidth = backwardOrForwardItemContainerWidthInPx,
+                            spaceBetweenPillPaginationPillItems = spaceBetweenPillPaginationPillItemsInPx,
+                            spaceBetweenBackwardOrForwardItemAndPillPaginationPillItem = spaceBetweenBackwardOrForwardItemAndPillPaginationPillItemInPx
+                        )
+                    }
 
-                    Log.e("PAGINATION_VIEW", "Max Pages Count : $count")
+                    Log.e("PAGINATION_VIEW", "Max Pages Count : $maxCount")
                     Log.e("PAGINATION_VIEW", "coordinates.size : ${coordinates.size}")
 
-                    maxPagesCount = count
+                    maxPagesCount = maxCount
 
                     paginationState = PaginationState(
                         selectedPosition = selectedPageIndex,
-                        pageUiItems = initPaginationUiItems(
-                            itemsSize = itemsSize,
-                            maxPagesCount = maxPagesCount,
-                            selectedPageIndex = selectedPageIndex
-                        )
+                        pageUiItems = if (itemsSize > 5 || alwaysShowNumber) {
+                            initNumericPaginationUiItems(
+                                itemsSize = itemsSize,
+                                maxPagesCount = maxPagesCount,
+                                selectedPageIndex = selectedPageIndex
+                            )
+                        } else {
+                            initPillPaginationUiItems(
+                                itemsSize = itemsSize,
+                                maxPagesCount = maxPagesCount,
+                                selectedPageIndex = selectedPageIndex
+                            )
+                        }
                     )
                 }
             }
     ) {
-
         if (paginationState.pageUiItems.isNotEmpty()) {
 
-            NumericPaginationWithBackwardAndForward(
-                paginationState = paginationState,
+            if (paginationState.pageUiItems.size > 5 || alwaysShowNumber) {
 
-                itemsSize = itemsSize,
-                paginationUiItemsChainStyle = paginationUiItemsChainStyle,
+                NumericPaginationWithBackwardAndForward(
+                    paginationState = paginationState,
 
-                numberPaginationItemContainerWidth = numberPaginationItemContainerWidth,
-                numberPaginationItemContainerHeight = numberPaginationItemContainerHeight,
-                numberPaginationItemWidth = numberPaginationItemWidth,
-                numberPaginationItemHeight = numberPaginationItemHeight,
-                spaceBetweenNumberPaginationPageItems = spaceBetweenNumberPaginationPageItems,
+                    itemsSize = itemsSize,
+                    paginationUiItemsChainStyle = paginationUiItemsChainStyle,
 
-                backwardOrForwardItemContainerWidth = backwardOrForwardItemContainerWidth,
-                backwardOrForwardItemContainerHeight = backwardOrForwardItemContainerHeight,
-                backwardOrForwardItemWidth = backwardOrForwardItemWidth,
-                backwardOrForwardItemHeight = backwardOrForwardItemHeight,
-                spaceBetweenBackwardOrForwardItemAndNumberPaginationPageItem = spaceBetweenBackwardOrForwardItemAndNumberPaginationPageItem,
+                    numberPaginationItemContainerWidth = numberPaginationItemContainerWidth,
+                    numberPaginationItemContainerHeight = numberPaginationItemContainerHeight,
+                    numberPaginationItemWidth = numberPaginationItemWidth,
+                    numberPaginationItemHeight = numberPaginationItemHeight,
+                    spaceBetweenNumberPaginationPageItems = spaceBetweenNumberPaginationPageItems,
 
-                onPageClicked = { page ->
-                    paginationState = PaginationState(
-                        selectedPosition = page,
-                        pageUiItems = initPaginationUiItems(
-                            itemsSize = itemsSize,
-                            maxPagesCount = maxPagesCount,
-                            selectedPageIndex = page
+                    backwardOrForwardItemContainerWidth = backwardOrForwardItemContainerWidth,
+                    backwardOrForwardItemContainerHeight = backwardOrForwardItemContainerHeight,
+                    backwardOrForwardItemWidth = backwardOrForwardItemWidth,
+                    backwardOrForwardItemHeight = backwardOrForwardItemHeight,
+                    spaceBetweenBackwardOrForwardItemAndNumberPaginationPageItem = spaceBetweenBackwardOrForwardItemAndNumberPaginationPageItem,
+
+                    onPageClicked = { page ->
+                        paginationState = PaginationState(
+                            selectedPosition = page,
+                            pageUiItems = if (itemsSize > 5 || alwaysShowNumber) {
+                                initNumericPaginationUiItems(
+                                    itemsSize = itemsSize,
+                                    maxPagesCount = maxPagesCount,
+                                    selectedPageIndex = page
+                                )
+                            } else {
+                                initPillPaginationUiItems(
+                                    itemsSize = itemsSize,
+                                    maxPagesCount = maxPagesCount,
+                                    selectedPageIndex = page
+                                )
+                            }
                         )
-                    )
-                    onPageClicked(page)
-                }
-            )
+                        onPageClicked(page)
+                    }
+                )
+
+            } else {
+
+                PillPaginationWithBackwardAndForward(
+                    paginationState = paginationState,
+
+                    itemsSize = itemsSize,
+                    paginationUiItemsChainStyle = paginationUiItemsChainStyle,
+
+                    pillPaginationPillItemContainerWidth = pillPaginationPillItemContainerWidth,
+                    pillPaginationPillItemContainerHeight = pillPaginationPillItemContainerHeight,
+                    pillPaginationPillItemWidth = pillPaginationPillItemWidth,
+                    pillPaginationPillItemHeight = pillPaginationPillItemHeight,
+                    spaceBetweenPillPaginationPillItems = spaceBetweenPillPaginationPillItems,
+
+                    backwardOrForwardItemContainerWidth = backwardOrForwardItemContainerWidth,
+                    backwardOrForwardItemContainerHeight = backwardOrForwardItemContainerHeight,
+                    backwardOrForwardItemWidth = backwardOrForwardItemWidth,
+                    backwardOrForwardItemHeight = backwardOrForwardItemHeight,
+                    spaceBetweenBackwardOrForwardItemAndPillPaginationPillItem = spaceBetweenBackwardOrForwardItemAndNumberPaginationPageItem,
+
+                    onPageClicked = { page ->
+                        paginationState = PaginationState(
+                            selectedPosition = page,
+                            pageUiItems = if (itemsSize > 5 || alwaysShowNumber) {
+                                initNumericPaginationUiItems(
+                                    itemsSize = itemsSize,
+                                    maxPagesCount = maxPagesCount,
+                                    selectedPageIndex = page
+                                )
+                            } else {
+                                initPillPaginationUiItems(
+                                    itemsSize = itemsSize,
+                                    maxPagesCount = maxPagesCount,
+                                    selectedPageIndex = page
+                                )
+                            }
+                        )
+                        onPageClicked(page)
+                    }
+                )
+
+            }
         }
-
     }
-
 }
 
 @Composable
@@ -546,10 +780,10 @@ fun NumericPaginationNumberPageItemCompose(
                                 Color.Transparent
                             }
                         ),
-                        shape = RoundedCornerShape(dimensionResource(id = R.dimen.number_pagination_item_rounded_corner))
+                        shape = RoundedCornerShape(dimensionResource(id = R.dimen.number_pagination_item_corner_radius))
                     )
                     .clip(
-                        shape = RoundedCornerShape(dimensionResource(id = R.dimen.number_pagination_item_rounded_corner))
+                        shape = RoundedCornerShape(dimensionResource(id = R.dimen.number_pagination_item_corner_radius))
                     )
                     .clickable(
                         // Uncomment to disable ripple effect when clicking
@@ -661,7 +895,7 @@ fun BackwardOrForwardItemCompose(
                     .height(backwardOrForwardItemHeight)
                     .width(backwardOrForwardItemWidth)
                     .clip(
-                        shape = RoundedCornerShape(dimensionResource(id = R.dimen.number_pagination_item_rounded_corner))
+                        shape = RoundedCornerShape(dimensionResource(id = R.dimen.number_pagination_item_corner_radius))
                     )
             ) {
 
@@ -703,6 +937,216 @@ fun BackwardOrForwardItemCompose(
                     spaceBetweenBackwardOrForwardItemAndNumberPaginationPageItem
                 )
             )
+        }
+
+    }
+
+}
+
+
+@Composable
+fun PillPaginationWithBackwardAndForward(
+
+    paginationState: PaginationState,
+
+    itemsSize: Int,
+    paginationUiItemsChainStyle: PaginationUiItemsChainStyle,
+
+    pillPaginationPillItemContainerWidth: Dp,
+    pillPaginationPillItemContainerHeight: Dp,
+    pillPaginationPillItemWidth: Dp,
+    pillPaginationPillItemHeight: Dp,
+    spaceBetweenPillPaginationPillItems: Dp,
+
+    backwardOrForwardItemContainerWidth: Dp,
+    backwardOrForwardItemContainerHeight: Dp,
+    backwardOrForwardItemWidth: Dp,
+    backwardOrForwardItemHeight: Dp,
+    spaceBetweenBackwardOrForwardItemAndPillPaginationPillItem: Dp,
+
+    onPageClicked: (pageNumber: Int) -> Unit,
+) {
+    val horizontalAlignment =
+        if (paginationUiItemsChainStyle == PaginationUiItemsChainStyle.PACKED) {
+            Arrangement.Center
+        } else {
+            Arrangement.SpaceBetween
+        }
+    Row(
+        modifier = Modifier.fillMaxSize(),
+        horizontalArrangement = horizontalAlignment
+    ) {
+
+        if (paginationState.pageUiItems.isNotEmpty()) {
+
+            BackwardOrForwardItemCompose(
+                selectedPosition = paginationState.selectedPosition,
+                itemsSize = itemsSize,
+                isBackwardIcon = true,
+                //
+                backwardOrForwardItemContainerWidth = backwardOrForwardItemContainerWidth,
+                backwardOrForwardItemContainerHeight = backwardOrForwardItemContainerHeight,
+                backwardOrForwardItemWidth = backwardOrForwardItemWidth,
+                backwardOrForwardItemHeight = backwardOrForwardItemHeight,
+                spaceBetweenBackwardOrForwardItemAndNumberPaginationPageItem = spaceBetweenBackwardOrForwardItemAndPillPaginationPillItem
+                //
+            ) { page ->
+                onPageClicked(page)
+            }
+
+            PillPagination(
+
+                modifier = Modifier.fillMaxHeight()
+                    .run {
+                        if (paginationUiItemsChainStyle == PaginationUiItemsChainStyle.PACKED) {
+                            wrapContentWidth()
+                        } else {
+                            width(0.dp)
+                            weight(1f)
+                        }
+                    },
+                pageUiItems = paginationState.pageUiItems,
+                //
+                pillPaginationItemContainerWidth = pillPaginationPillItemContainerWidth,
+                pillPaginationItemContainerHeight = pillPaginationPillItemContainerHeight,
+                pillPaginationItemWidth = pillPaginationPillItemWidth,
+                pillPaginationItemHeight = pillPaginationPillItemHeight,
+                spaceBetweenPillPaginationPillItems = spaceBetweenPillPaginationPillItems
+                //
+            ) { page ->
+                onPageClicked(page)
+            }
+
+
+            BackwardOrForwardItemCompose(
+                selectedPosition = paginationState.selectedPosition,
+                itemsSize = itemsSize,
+                isBackwardIcon = false,
+                //
+                backwardOrForwardItemContainerWidth = backwardOrForwardItemContainerWidth,
+                backwardOrForwardItemContainerHeight = backwardOrForwardItemContainerHeight,
+                backwardOrForwardItemWidth = backwardOrForwardItemWidth,
+                backwardOrForwardItemHeight = backwardOrForwardItemHeight,
+                spaceBetweenBackwardOrForwardItemAndNumberPaginationPageItem = spaceBetweenBackwardOrForwardItemAndPillPaginationPillItem
+                //
+            ) { page ->
+                onPageClicked(page)
+            }
+        }
+    }
+}
+
+
+@Composable
+fun PillPagination(
+    modifier: Modifier = Modifier,
+    pageUiItems: List<PageUiItem>,
+    //
+    pillPaginationItemContainerWidth: Dp,
+    pillPaginationItemContainerHeight: Dp,
+    pillPaginationItemWidth: Dp,
+    pillPaginationItemHeight: Dp,
+    spaceBetweenPillPaginationPillItems: Dp,
+    //
+    pageClicked: (page: Int) -> Unit
+) {
+
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.Center
+    ) {
+
+        val count = pageUiItems.size
+
+        (0 until count).forEach {
+            when (val pageUiItem: PageUiItem = pageUiItems[it]) {
+                is PillPageUiItem -> {
+                    PillPaginationPillPageItemCompose(
+                        pillPageUiItem = pageUiItem,
+                        pillPageUiItemsSize = pageUiItems.size,
+                        //
+                        pillPaginationItemContainerWidth = pillPaginationItemContainerWidth,
+                        pillPaginationItemContainerHeight = pillPaginationItemContainerHeight,
+                        pillPaginationItemWidth = pillPaginationItemWidth,
+                        pillPaginationItemHeight = pillPaginationItemHeight,
+                        spaceBetweenPillPaginationPillItems = spaceBetweenPillPaginationPillItems
+                    ) { page ->
+                        pageClicked(page)
+                    }
+                }
+                else -> {
+
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
+fun PillPaginationPillPageItemCompose(
+    modifier: Modifier = Modifier,
+    pillPageUiItem: PillPageUiItem,
+    pillPageUiItemsSize: Int,
+    //
+    pillPaginationItemContainerWidth: Dp,
+    pillPaginationItemContainerHeight: Dp,
+    pillPaginationItemWidth: Dp,
+    pillPaginationItemHeight: Dp,
+    spaceBetweenPillPaginationPillItems: Dp,
+    //
+    pageClicked: (page: Int) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .wrapContentWidth()
+            .wrapContentHeight()
+    ) {
+
+        if (pillPageUiItemsSize > 1 && pillPageUiItem.uiPageIndex != 1) {
+            Spacer(modifier = Modifier.width(spaceBetweenPillPaginationPillItems / 2))
+        }
+
+        Box(
+            modifier = modifier
+                .width(pillPaginationItemContainerWidth)
+                .height(pillPaginationItemContainerHeight),
+            contentAlignment = Alignment.Center
+        ) {
+            Box(
+                modifier = modifier
+                    .width(pillPaginationItemWidth)
+                    .height(pillPaginationItemHeight)
+                    .border(
+                        border = BorderStroke(
+                            width = dimensionResource(id = R.dimen.pill_pagination_item_border_stroke),
+                            color = Color.Black
+                        ),
+                        shape = RoundedCornerShape(dimensionResource(id = R.dimen.pill_pagination_item_corner_radius))
+                    )
+                    .clip(
+                        shape = RoundedCornerShape(dimensionResource(id = R.dimen.pill_pagination_item_corner_radius))
+                    )
+                    .background(
+                        if (pillPageUiItem.isSelected) {
+                            Color.Black
+                        } else {
+                            Color.Transparent
+                        }
+                    )
+                    .clickable(
+                        // Uncomment to disable ripple effect when clicking
+//                        indication = null, interactionSource = remember { MutableInteractionSource() }
+                    ) {
+                        if (!pillPageUiItem.isSelected) {
+                            pageClicked(pillPageUiItem.page)
+                        }
+                    }
+            )
+        }
+
+        if (pillPageUiItemsSize > 1 && pillPageUiItem.uiPageIndex != pillPageUiItemsSize) {
+            Spacer(modifier = Modifier.width(spaceBetweenPillPaginationPillItems / 2))
         }
 
     }

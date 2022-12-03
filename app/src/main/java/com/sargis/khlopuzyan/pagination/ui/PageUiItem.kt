@@ -17,6 +17,12 @@ data class DotPageUiItem(
     val uiPageIndex: Int
 ) : PageUiItem
 
+data class PillPageUiItem(
+    val page: Int,
+    val uiPageIndex: Int,
+    var isSelected: Boolean = false
+) : PageUiItem
+
 
 data class PaginationState(
     val selectedPosition: Int,
