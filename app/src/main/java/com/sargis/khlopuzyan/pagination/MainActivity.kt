@@ -32,7 +32,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Column {
 
-                        val paginationViewHeight = dimensionResource(id = R.dimen.pagination_View_height)
+                        val paginationViewHeight =
+                            dimensionResource(id = R.dimen.pagination_View_height)
 //                        val paginationViewHeight = 80.dp
                         val paginationViewWidth = 480.dp
 
@@ -70,7 +71,7 @@ class MainActivity : ComponentActivity() {
 fun DefaultPreview() {
     PaginationTheme {
         PaginationView(paginationStyle = PaginationStyle.PACKED) { page ->
-            Log.e("PAGINATION_VIEW", "page $page clicked")
+
         }
     }
 }

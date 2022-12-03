@@ -32,39 +32,24 @@ import com.sargis.khlopuzyan.pagination.ui.theme.NumericPaginationItemText
 fun NumericPaginationPreview() {
     MaterialTheme {
         PaginationView(paginationStyle = PaginationStyle.PACKED) { page ->
-            Log.e("PAGINATION_VIEW", "page $page clicked")
+
         }
     }
 }
 
 //*****************************************************************
 
-fun calculateNumericPaginationUiItemsMaxCount(
+fun calculatePaginationUiItemsMaxCount(
     containerWidth: Float,
-    numericPaginationItemContainerWidth: Float,
+    paginationItemContainerWidth: Float,
     backwardOrForwardItemContainerWidth: Float,
-    spaceBetweenNumericPaginationItems: Float,
-    spaceBetweenBackwardOrForwardItemAndNumericPaginationItem: Float
+    spaceBetweenPaginationItems: Float,
+    spaceBetweenBackwardOrForwardItemAndPaginationItem: Float
 ): Int {
     val paginationItemsSpace =
-        containerWidth - 2 * (backwardOrForwardItemContainerWidth + spaceBetweenBackwardOrForwardItemAndNumericPaginationItem)
+        containerWidth - 2 * (backwardOrForwardItemContainerWidth + spaceBetweenBackwardOrForwardItemAndPaginationItem)
     val maxCount =
-        (paginationItemsSpace + spaceBetweenNumericPaginationItems) / (numericPaginationItemContainerWidth + spaceBetweenNumericPaginationItems)
-
-    return maxCount.toInt()
-}
-
-fun calculatePillPaginationUiPillItemsMaxCount(
-    containerWidth: Float,
-    pillPaginationPillItemContainerWidthIn: Float,
-    backwardOrForwardItemContainerWidth: Float,
-    spaceBetweenPillPaginationPillItems: Float,
-    spaceBetweenBackwardOrForwardItemAndPillPaginationPillItem: Float
-): Int {
-    val paginationItemsSpace =
-        containerWidth - 2 * (backwardOrForwardItemContainerWidth + spaceBetweenBackwardOrForwardItemAndPillPaginationPillItem)
-    val maxCount =
-        (paginationItemsSpace + spaceBetweenPillPaginationPillItems) / (pillPaginationPillItemContainerWidthIn + spaceBetweenPillPaginationPillItems)
+        (paginationItemsSpace + spaceBetweenPaginationItems) / (paginationItemContainerWidth + spaceBetweenPaginationItems)
 
     return maxCount.toInt()
 }
@@ -74,11 +59,6 @@ fun initNumericPaginationUiItems(
     maxPagesCount: Int,
     selectedPageIndex: Int
 ): List<PageUiItem> {
-
-    //TODO
-//    if (maxPagesCount < 7) {
-//        return mutableListOf()
-//    }
 
     val paginationItems = mutableListOf<PageUiItem>()
 
@@ -196,135 +176,27 @@ fun initNumericPaginationUiItems(
     return paginationItems
 }
 
-
-
 fun initPillPaginationUiItems(
     itemsSize: Int,
     maxPagesCount: Int,
     selectedPageIndex: Int
 ): List<PageUiItem> {
 
-    //TODO
-//    if (maxPagesCount < 7) {
-//        return mutableListOf()
-//    }
-
     val paginationItems = mutableListOf<PageUiItem>()
 
-//    when {
-//        itemsSize <= maxPagesCount -> {
+    (1..if (maxPagesCount > itemsSize) itemsSize else maxPagesCount).forEach {
 
-            (1..if (maxPagesCount > itemsSize) itemsSize else maxPagesCount).forEach {
-
-                paginationItems.add(
-                    PillPageUiItem(
-                        page = it,
-                        uiPageIndex = it,
-                        isSelected = it == selectedPageIndex
-                    )
-                )
-
-            }
-
-//        }
-//        else -> {
-//
-//            // 1 2 3 4 5 6 |7| 8 9 10 11 ... 20
-//            if (selectedPageIndex <= roundUpDivision(maxPagesCount, 2)) {
-//
-//                (1..maxPagesCount - 2).forEach {
-//
-//                    paginationItems.add(
-//                        NumericPageUiItem(
-//                            page = it,
-//                            uiPageIndex = it,
-//                            isSelected = it == selectedPageIndex
-//                        )
-//                    )
-//
-//                }
-//
-//                paginationItems.add(
-//                    DotPageUiItem(uiPageIndex = maxPagesCount - 1)
-//                )
-//
-//                paginationItems.add(
-//                    NumericPageUiItem(
-//                        page = itemsSize,
-//                        uiPageIndex = maxPagesCount,
-//                        isSelected = false
-//                    )
-//                )
-//
-//                // 1 ... 10 11 12 13 |14| 15 16 17 18 19 20
-//            } else if (itemsSize - selectedPageIndex < roundUpDivision(maxPagesCount, 2)) {
-//
-//                paginationItems.add(
-//                    NumericPageUiItem(page = 1, uiPageIndex = 1, isSelected = false)
-//                )
-//
-//                paginationItems.add(
-//                    DotPageUiItem(uiPageIndex = 2)
-//                )
-//
-//                val diff = itemsSize - maxPagesCount
-//
-//                (3..maxPagesCount).forEach {
-//
-//                    paginationItems.add(
-//                        NumericPageUiItem(
-//                            page = it + diff,
-//                            uiPageIndex = it,
-//                            isSelected = it + diff == selectedPageIndex
-//                        )
-//                    )
-//
-//                }
-//
-//                // 1 ... 6 7 8 9 |10| 11 12 13 14 ... 20
-//            } else {
-//
-//                paginationItems.add(
-//                    NumericPageUiItem(page = 1, uiPageIndex = 1, isSelected = false)
-//                )
-//
-//                paginationItems.add(
-//                    DotPageUiItem(uiPageIndex = 2)
-//                )
-//
-//                val diff = selectedPageIndex - maxPagesCount / 2 - 1
-//
-//                (3..maxPagesCount - 2).forEach {
-//
-//                    paginationItems.add(
-//                        NumericPageUiItem(
-//                            page = it + diff,
-//                            uiPageIndex = it,
-//                            isSelected = it + diff == selectedPageIndex
-//                        )
-//                    )
-//
-//                }
-//
-//                paginationItems.add(
-//                    DotPageUiItem(uiPageIndex = maxPagesCount - 1)
-//                )
-//
-//                paginationItems.add(
-//                    NumericPageUiItem(
-//                        page = itemsSize,
-//                        uiPageIndex = maxPagesCount,
-//                        isSelected = false
-//                    )
-//                )
-//
-//            }
-//        }
-//    }
+        paginationItems.add(
+            PillPageUiItem(
+                page = it,
+                uiPageIndex = it,
+                isSelected = it == selectedPageIndex
+            )
+        )
+    }
 
     return paginationItems
 }
-
 
 
 private fun roundUpDivision(num: Int, divisor: Int): Int {
@@ -337,8 +209,8 @@ private fun roundUpDivision(num: Int, divisor: Int): Int {
 
 @Composable
 fun PaginationView(
-    itemsSize: Int = 0, //dataList: List<Int>,
-    selectedPageIndex: Int = 0, //currentPage: Int,
+    itemsSize: Int = 0,
+    selectedPageIndex: Int = 0,
     alwaysShowNumber: Boolean = false,
     paginationStyle: PaginationStyle,
     onPageClicked: (pageNumber: Int) -> Unit
@@ -371,87 +243,54 @@ fun PaginationView(
         )
     }
 
-    Log.e("LOG_TAG", "NumericPaginationWithBackwardAndForward -> maxPagesCount : $maxPagesCount")
+    // PAGINATION VIEW
 
+    val paginationHorizontalSpace = dimensionResource(id = R.dimen.pagination_horizontal_space)
+    val paginationVerticalSpace = dimensionResource(id = R.dimen.pagination_vertical_space)
 
-    // NUMERIC PAGINATION
-    val spaceBetweenNumericPaginationItems =
-        dimensionResource(id = R.dimen.space_between_numeric_pagination_items)
-    val spaceBetweenBackwardOrForwardItemAndNumericPaginationItem =
-        dimensionResource(id = R.dimen.space_between_backward_or_forward_item_and_numeric_pagination_item)
-
-
-    val numericPaginationItemWidth = dimensionResource(id = R.dimen.numeric_pagination_item_width)
-    val numericPaginationItemHeight = dimensionResource(id = R.dimen.numeric_pagination_item_height)
-
-    val numericPaginationItemContainerHeight =
-        dimensionResource(id = R.dimen.numeric_pagination_item_container_height)
-    val numericPaginationItemContainerWidth =
-        dimensionResource(id = R.dimen.numeric_pagination_item_container_width)
-
-
-    val backwardOrForwardItemWidth = dimensionResource(id = R.dimen.backward_or_forward_item_width)
-    val backwardOrForwardItemHeight =
-        dimensionResource(id = R.dimen.backward_or_forward_item_height)
+    // BACKWARD or FORWARD ITEM
 
     val backwardOrForwardItemContainerWidth =
         dimensionResource(id = R.dimen.backward_or_forward_item_container_width)
     val backwardOrForwardItemContainerHeight =
         dimensionResource(id = R.dimen.backward_or_forward_item_container_height)
 
+    val backwardOrForwardItemWidth = dimensionResource(id = R.dimen.backward_or_forward_item_width)
+    val backwardOrForwardItemHeight =
+        dimensionResource(id = R.dimen.backward_or_forward_item_height)
 
-    val paginationHorizontalSpace = dimensionResource(id = R.dimen.pagination_horizontal_space)
-    val paginationVerticalSpace = dimensionResource(id = R.dimen.pagination_vertical_space)
+    // NUMERIC PAGINATION
 
+    val numericPaginationItemWidth = dimensionResource(id = R.dimen.numeric_pagination_item_width)
+    val numericPaginationItemHeight = dimensionResource(id = R.dimen.numeric_pagination_item_height)
 
-    val spaceBetweenNumericPaginationItemsInPx =
-        with(LocalDensity.current) { dimensionResource(id = R.dimen.space_between_numeric_pagination_items).toPx() }
-
-    val spaceBetweenBackwardOrForwardItemAndNumericPaginationItemInPx =
-        with(LocalDensity.current) {
-            dimensionResource(id = R.dimen.space_between_backward_or_forward_item_and_numeric_pagination_item).toPx()
-        }
-
-    val numericPaginationItemContainerWidthInPx =
-        with(LocalDensity.current) { dimensionResource(id = R.dimen.numeric_pagination_item_container_width).toPx() }
-//    val numericPaginationItemContainerHeightInPx =
-//        with(LocalDensity.current) { dimensionResource(id = R.dimen.numeric_pagination_item_container_height).toPx() }
+    val numericPaginationItemContainerWidth =
+        dimensionResource(id = R.dimen.numeric_pagination_item_container_width)
+    val numericPaginationItemContainerHeight =
+        dimensionResource(id = R.dimen.numeric_pagination_item_container_height)
 
 
-    val backwardOrForwardItemContainerWidthInPx =
-        with(LocalDensity.current) { dimensionResource(id = R.dimen.backward_or_forward_item_container_height).toPx() }
-//    val backwardOrForwardItemContainerHeightInPx =
-//        with(LocalDensity.current) { dimensionResource(id = R.dimen.backward_or_forward_item_container_width).toPx() }
-
-
-//    val numericPaginationItemWidthInPx =
-//        with(LocalDensity.current) { dimensionResource(id = R.dimen.numeric_pagination_item_width).toPx() }
-//    val numericPaginationItemHeightInPx =
-//        with(LocalDensity.current) { dimensionResource(id = R.dimen.numeric_pagination_item_height).toPx() }
+    val spaceBetweenNumericPaginationItems =
+        dimensionResource(id = R.dimen.space_between_numeric_pagination_items)
+    val spaceBetweenBackwardOrForwardItemAndNumericPaginationItem =
+        dimensionResource(id = R.dimen.space_between_backward_or_forward_item_and_numeric_pagination_item)
 
     // PILL PAGINATION
 
-    val pillPaginationPillItemContainerWidth =
+    val pillPaginationItemContainerWidth =
         dimensionResource(id = R.dimen.pill_pagination_item_container_width)
-    val pillPaginationPillItemContainerHeight =
+    val pillPaginationItemContainerHeight =
         dimensionResource(id = R.dimen.pill_pagination_item_container_height)
 
-    val pillPaginationPillItemWidth =
-        dimensionResource(id = R.dimen.pill_pagination_item_width)
-    val pillPaginationPillItemHeight =
-        dimensionResource(id = R.dimen.pill_pagination_item_height)
+    val pillPaginationItemWidth = dimensionResource(id = R.dimen.pill_pagination_item_width)
+    val pillPaginationItemHeight = dimensionResource(id = R.dimen.pill_pagination_item_height)
 
-    val spaceBetweenPillPaginationPillItems =
+    val spaceBetweenPillPaginationItems =
         dimensionResource(id = R.dimen.space_between_pill_pagination_items)
+    val spaceBetweenBackwardOrForwardItemAndPillPaginationItem =
+        dimensionResource(id = R.dimen.space_between_backward_or_forward_item_and_pill_pagination_item)
 
-    val pillPaginationPillItemContainerWidthInPx =
-        with(LocalDensity.current) { dimensionResource(id = R.dimen.pill_pagination_item_container_width).toPx() }
-
-    val spaceBetweenPillPaginationPillItemsInPx =
-        with(LocalDensity.current) { dimensionResource(id = R.dimen.space_between_pill_pagination_items).toPx() }
-
-    val spaceBetweenBackwardOrForwardItemAndPillPaginationPillItemInPx =
-        with(LocalDensity.current) { dimensionResource(id = R.dimen.space_between_backward_or_forward_item_and_numeric_pagination_item).toPx() }
+    val density = LocalDensity.current.density
 
     Box(
         modifier = Modifier
@@ -460,27 +299,27 @@ fun PaginationView(
             .onGloballyPositioned { coordinates ->
                 if (maxPagesCount < 0) {
 
-                    val containerWidth = coordinates.size.width.dp.value
+                    val containerWidthInDp = coordinates.size.width / density
 
                     val maxCount = if (itemsSize > 5 || alwaysShowNumber) {
-                        calculateNumericPaginationUiItemsMaxCount(
-                            containerWidth = containerWidth,
-                            numericPaginationItemContainerWidth = numericPaginationItemContainerWidthInPx,
-                            backwardOrForwardItemContainerWidth = backwardOrForwardItemContainerWidthInPx,
-                            spaceBetweenNumericPaginationItems = spaceBetweenNumericPaginationItemsInPx,
-                            spaceBetweenBackwardOrForwardItemAndNumericPaginationItem = spaceBetweenBackwardOrForwardItemAndNumericPaginationItemInPx
+                        calculatePaginationUiItemsMaxCount(
+                            containerWidth = containerWidthInDp,
+                            paginationItemContainerWidth = numericPaginationItemContainerWidth.value,
+                            backwardOrForwardItemContainerWidth = backwardOrForwardItemContainerWidth.value,
+                            spaceBetweenPaginationItems = spaceBetweenNumericPaginationItems.value,
+                            spaceBetweenBackwardOrForwardItemAndPaginationItem = spaceBetweenBackwardOrForwardItemAndNumericPaginationItem.value
                         )
                     } else {
-                        calculatePillPaginationUiPillItemsMaxCount(
-                            containerWidth = containerWidth,
-                            pillPaginationPillItemContainerWidthIn = pillPaginationPillItemContainerWidthInPx,
-                            backwardOrForwardItemContainerWidth = backwardOrForwardItemContainerWidthInPx,
-                            spaceBetweenPillPaginationPillItems = spaceBetweenPillPaginationPillItemsInPx,
-                            spaceBetweenBackwardOrForwardItemAndPillPaginationPillItem = spaceBetweenBackwardOrForwardItemAndPillPaginationPillItemInPx
+                        calculatePaginationUiItemsMaxCount(
+                            containerWidth = containerWidthInDp,
+                            paginationItemContainerWidth = pillPaginationItemContainerWidth.value,
+                            backwardOrForwardItemContainerWidth = backwardOrForwardItemContainerWidth.value,
+                            spaceBetweenPaginationItems = spaceBetweenPillPaginationItems.value,
+                            spaceBetweenBackwardOrForwardItemAndPaginationItem = spaceBetweenBackwardOrForwardItemAndPillPaginationItem.value
                         )
                     }
 
-                    Log.e("PAGINATION_VIEW", "Max Pages Count : $maxCount")
+                    Log.e("PAGINATION_VIEW", "Pagination Ui Items Max Count : $maxCount")
                     Log.e("PAGINATION_VIEW", "coordinates.size : ${coordinates.size}")
 
                     maxPagesCount = maxCount
@@ -555,17 +394,17 @@ fun PaginationView(
                     itemsSize = itemsSize,
                     paginationStyle = paginationStyle,
 
-                    pillPaginationPillItemContainerWidth = pillPaginationPillItemContainerWidth,
-                    pillPaginationPillItemContainerHeight = pillPaginationPillItemContainerHeight,
-                    pillPaginationPillItemWidth = pillPaginationPillItemWidth,
-                    pillPaginationPillItemHeight = pillPaginationPillItemHeight,
-                    spaceBetweenPillPaginationPillItems = spaceBetweenPillPaginationPillItems,
+                    pillPaginationItemContainerWidth = pillPaginationItemContainerWidth,
+                    pillPaginationItemContainerHeight = pillPaginationItemContainerHeight,
+                    pillPaginationItemWidth = pillPaginationItemWidth,
+                    pillPaginationItemHeight = pillPaginationItemHeight,
+                    spaceBetweenPillPaginationItems = spaceBetweenPillPaginationItems,
 
                     backwardOrForwardItemContainerWidth = backwardOrForwardItemContainerWidth,
                     backwardOrForwardItemContainerHeight = backwardOrForwardItemContainerHeight,
                     backwardOrForwardItemWidth = backwardOrForwardItemWidth,
                     backwardOrForwardItemHeight = backwardOrForwardItemHeight,
-                    spaceBetweenBackwardOrForwardItemAndPillPaginationPillItem = spaceBetweenBackwardOrForwardItemAndNumericPaginationItem,
+                    spaceBetweenBackwardOrForwardItemAndPillPaginationItem = spaceBetweenBackwardOrForwardItemAndNumericPaginationItem,
 
                     onPageClicked = { page ->
                         paginationState = PaginationState(
@@ -586,8 +425,8 @@ fun PaginationView(
                         )
                         onPageClicked(page)
                     }
-                )
 
+                )
             }
         }
     }
@@ -613,14 +452,15 @@ fun NumericPaginationWithBackwardAndForward(
     backwardOrForwardItemHeight: Dp,
     spaceBetweenBackwardOrForwardItemAndNumericPaginationItem: Dp,
 
-    onPageClicked: (pageNumber: Int) -> Unit,
+    onPageClicked: (pageNumber: Int) -> Unit
+
 ) {
-    val horizontalAlignment =
-        if (paginationStyle == PaginationStyle.PACKED) {
-            Arrangement.Center
-        } else {
-            Arrangement.SpaceBetween
-        }
+    val horizontalAlignment = if (paginationStyle == PaginationStyle.PACKED) {
+        Arrangement.Center
+    } else {
+        Arrangement.SpaceBetween
+    }
+
     Row(
         modifier = Modifier.fillMaxSize(),
         horizontalArrangement = horizontalAlignment
@@ -637,7 +477,7 @@ fun NumericPaginationWithBackwardAndForward(
                 backwardOrForwardItemContainerHeight = backwardOrForwardItemContainerHeight,
                 backwardOrForwardItemWidth = backwardOrForwardItemWidth,
                 backwardOrForwardItemHeight = backwardOrForwardItemHeight,
-                spaceBetweenBackwardOrForwardItemAndNumericPaginationItem = spaceBetweenBackwardOrForwardItemAndNumericPaginationItem
+                spaceBetweenBackwardOrForwardItemAndPaginationItem = spaceBetweenBackwardOrForwardItemAndNumericPaginationItem
                 //
             ) { page ->
                 onPageClicked(page)
@@ -675,7 +515,7 @@ fun NumericPaginationWithBackwardAndForward(
                 backwardOrForwardItemContainerHeight = backwardOrForwardItemContainerHeight,
                 backwardOrForwardItemWidth = backwardOrForwardItemWidth,
                 backwardOrForwardItemHeight = backwardOrForwardItemHeight,
-                spaceBetweenBackwardOrForwardItemAndNumericPaginationItem = spaceBetweenBackwardOrForwardItemAndNumericPaginationItem
+                spaceBetweenBackwardOrForwardItemAndPaginationItem = spaceBetweenBackwardOrForwardItemAndNumericPaginationItem
                 //
             ) { page ->
                 onPageClicked(page)
@@ -866,7 +706,7 @@ fun BackwardOrForwardItemCompose(
     backwardOrForwardItemContainerHeight: Dp,
     backwardOrForwardItemWidth: Dp,
     backwardOrForwardItemHeight: Dp,
-    spaceBetweenBackwardOrForwardItemAndNumericPaginationItem: Dp,
+    spaceBetweenBackwardOrForwardItemAndPaginationItem: Dp,
 
     backwardOrForwardItemClicked: (page: Int) -> Unit
 ) {
@@ -877,7 +717,7 @@ fun BackwardOrForwardItemCompose(
         if (!isBackwardIcon) {
             Spacer(
                 modifier = Modifier.width(
-                    spaceBetweenBackwardOrForwardItemAndNumericPaginationItem
+                    spaceBetweenBackwardOrForwardItemAndPaginationItem
                 )
             )
         }
@@ -893,7 +733,7 @@ fun BackwardOrForwardItemCompose(
                     .height(backwardOrForwardItemHeight)
                     .width(backwardOrForwardItemWidth)
                     .clip(
-                        shape = RoundedCornerShape(dimensionResource(id = R.dimen.numeric_pagination_item_corner_radius))
+                        shape = RoundedCornerShape(dimensionResource(id = R.dimen.pill_pagination_item_corner_radius))
                     )
             ) {
 
@@ -918,7 +758,10 @@ fun BackwardOrForwardItemCompose(
                     alignment = Alignment.Center,
                     modifier = Modifier
                         .matchParentSize()
-                        .clickable {
+                        .clickable(
+                            // Uncomment to disable ripple effect when clicking
+//                        indication = null, interactionSource = remember { MutableInteractionSource() }
+                        ) {
                             if (isBackwardIcon && selectedPosition != 1) {
                                 backwardOrForwardItemClicked(selectedPosition - 1)
                             } else if (!isBackwardIcon && selectedPosition != itemsSize) {
@@ -932,7 +775,7 @@ fun BackwardOrForwardItemCompose(
         if (isBackwardIcon) {
             Spacer(
                 modifier = Modifier.width(
-                    spaceBetweenBackwardOrForwardItemAndNumericPaginationItem
+                    spaceBetweenBackwardOrForwardItemAndPaginationItem
                 )
             )
         }
@@ -950,17 +793,17 @@ fun PillPaginationWithBackwardAndForward(
     itemsSize: Int,
     paginationStyle: PaginationStyle,
 
-    pillPaginationPillItemContainerWidth: Dp,
-    pillPaginationPillItemContainerHeight: Dp,
-    pillPaginationPillItemWidth: Dp,
-    pillPaginationPillItemHeight: Dp,
-    spaceBetweenPillPaginationPillItems: Dp,
+    pillPaginationItemContainerWidth: Dp,
+    pillPaginationItemContainerHeight: Dp,
+    pillPaginationItemWidth: Dp,
+    pillPaginationItemHeight: Dp,
+    spaceBetweenPillPaginationItems: Dp,
 
     backwardOrForwardItemContainerWidth: Dp,
     backwardOrForwardItemContainerHeight: Dp,
     backwardOrForwardItemWidth: Dp,
     backwardOrForwardItemHeight: Dp,
-    spaceBetweenBackwardOrForwardItemAndPillPaginationPillItem: Dp,
+    spaceBetweenBackwardOrForwardItemAndPillPaginationItem: Dp,
 
     onPageClicked: (pageNumber: Int) -> Unit,
 ) {
@@ -986,7 +829,7 @@ fun PillPaginationWithBackwardAndForward(
                 backwardOrForwardItemContainerHeight = backwardOrForwardItemContainerHeight,
                 backwardOrForwardItemWidth = backwardOrForwardItemWidth,
                 backwardOrForwardItemHeight = backwardOrForwardItemHeight,
-                spaceBetweenBackwardOrForwardItemAndNumericPaginationItem = spaceBetweenBackwardOrForwardItemAndPillPaginationPillItem
+                spaceBetweenBackwardOrForwardItemAndPaginationItem = spaceBetweenBackwardOrForwardItemAndPillPaginationItem
                 //
             ) { page ->
                 onPageClicked(page)
@@ -1005,11 +848,11 @@ fun PillPaginationWithBackwardAndForward(
                     },
                 pageUiItems = paginationState.pageUiItems,
                 //
-                pillPaginationItemContainerWidth = pillPaginationPillItemContainerWidth,
-                pillPaginationItemContainerHeight = pillPaginationPillItemContainerHeight,
-                pillPaginationItemWidth = pillPaginationPillItemWidth,
-                pillPaginationItemHeight = pillPaginationPillItemHeight,
-                spaceBetweenPillPaginationPillItems = spaceBetweenPillPaginationPillItems
+                pillPaginationItemContainerWidth = pillPaginationItemContainerWidth,
+                pillPaginationItemContainerHeight = pillPaginationItemContainerHeight,
+                pillPaginationItemWidth = pillPaginationItemWidth,
+                pillPaginationItemHeight = pillPaginationItemHeight,
+                spaceBetweenPillPaginationItems = spaceBetweenPillPaginationItems
                 //
             ) { page ->
                 onPageClicked(page)
@@ -1025,7 +868,7 @@ fun PillPaginationWithBackwardAndForward(
                 backwardOrForwardItemContainerHeight = backwardOrForwardItemContainerHeight,
                 backwardOrForwardItemWidth = backwardOrForwardItemWidth,
                 backwardOrForwardItemHeight = backwardOrForwardItemHeight,
-                spaceBetweenBackwardOrForwardItemAndNumericPaginationItem = spaceBetweenBackwardOrForwardItemAndPillPaginationPillItem
+                spaceBetweenBackwardOrForwardItemAndPaginationItem = spaceBetweenBackwardOrForwardItemAndPillPaginationItem
                 //
             ) { page ->
                 onPageClicked(page)
@@ -1044,7 +887,7 @@ fun PillPagination(
     pillPaginationItemContainerHeight: Dp,
     pillPaginationItemWidth: Dp,
     pillPaginationItemHeight: Dp,
-    spaceBetweenPillPaginationPillItems: Dp,
+    spaceBetweenPillPaginationItems: Dp,
     //
     pageClicked: (page: Int) -> Unit
 ) {
@@ -1057,23 +900,19 @@ fun PillPagination(
         val count = pageUiItems.size
 
         (0 until count).forEach {
-            when (val pageUiItem: PageUiItem = pageUiItems[it]) {
-                is PillPageUiItem -> {
-                    PillPaginationPillItemCompose(
-                        pillPageUiItem = pageUiItem,
-                        pillPageUiItemsSize = pageUiItems.size,
-                        //
-                        pillPaginationItemContainerWidth = pillPaginationItemContainerWidth,
-                        pillPaginationItemContainerHeight = pillPaginationItemContainerHeight,
-                        pillPaginationItemWidth = pillPaginationItemWidth,
-                        pillPaginationItemHeight = pillPaginationItemHeight,
-                        spaceBetweenPillPaginationPillItems = spaceBetweenPillPaginationPillItems
-                    ) { page ->
-                        pageClicked(page)
-                    }
-                }
-                else -> {
-
+            val pageUiItem: PageUiItem? = pageUiItems.getOrNull(it)
+            if (pageUiItem is PillPageUiItem) {
+                PillPaginationItemCompose(
+                    pillPageUiItem = pageUiItem,
+                    pillPageUiItemsSize = pageUiItems.size,
+                    //
+                    pillPaginationItemContainerWidth = pillPaginationItemContainerWidth,
+                    pillPaginationItemContainerHeight = pillPaginationItemContainerHeight,
+                    pillPaginationItemWidth = pillPaginationItemWidth,
+                    pillPaginationItemHeight = pillPaginationItemHeight,
+                    spaceBetweenPillPaginationItems = spaceBetweenPillPaginationItems
+                ) { page ->
+                    pageClicked(page)
                 }
             }
         }
@@ -1082,7 +921,7 @@ fun PillPagination(
 
 
 @Composable
-fun PillPaginationPillItemCompose(
+fun PillPaginationItemCompose(
     modifier: Modifier = Modifier,
     pillPageUiItem: PillPageUiItem,
     pillPageUiItemsSize: Int,
@@ -1091,7 +930,7 @@ fun PillPaginationPillItemCompose(
     pillPaginationItemContainerHeight: Dp,
     pillPaginationItemWidth: Dp,
     pillPaginationItemHeight: Dp,
-    spaceBetweenPillPaginationPillItems: Dp,
+    spaceBetweenPillPaginationItems: Dp,
     //
     pageClicked: (page: Int) -> Unit
 ) {
@@ -1102,7 +941,7 @@ fun PillPaginationPillItemCompose(
     ) {
 
         if (pillPageUiItemsSize > 1 && pillPageUiItem.uiPageIndex != 1) {
-            Spacer(modifier = Modifier.width(spaceBetweenPillPaginationPillItems / 2))
+            Spacer(modifier = Modifier.width(spaceBetweenPillPaginationItems / 2))
         }
 
         Box(
@@ -1144,7 +983,7 @@ fun PillPaginationPillItemCompose(
         }
 
         if (pillPageUiItemsSize > 1 && pillPageUiItem.uiPageIndex != pillPageUiItemsSize) {
-            Spacer(modifier = Modifier.width(spaceBetweenPillPaginationPillItems / 2))
+            Spacer(modifier = Modifier.width(spaceBetweenPillPaginationItems / 2))
         }
 
     }
