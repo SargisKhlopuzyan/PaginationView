@@ -4,7 +4,6 @@ package com.sargis.khlopuzyan.pagination.ui
  * Created by Sargis Khlopuzyan on 11/30/2022.
  */
 
-
 sealed interface PageUiItem
 
 data class NumericPageUiItem(

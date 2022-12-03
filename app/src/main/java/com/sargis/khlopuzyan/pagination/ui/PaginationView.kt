@@ -31,7 +31,7 @@ import com.sargis.khlopuzyan.pagination.ui.theme.NumericPaginationItemText
 @Composable
 fun NumericPaginationPreview() {
     MaterialTheme {
-        PaginationView(paginationUiItemsChainStyle = PaginationUiItemsChainStyle.PACKED) { page ->
+        PaginationView(paginationStyle = PaginationStyle.PACKED) { page ->
             Log.e("PAGINATION_VIEW", "page $page clicked")
         }
     }
@@ -340,7 +340,7 @@ fun PaginationView(
     itemsSize: Int = 0, //dataList: List<Int>,
     selectedPageIndex: Int = 0, //currentPage: Int,
     alwaysShowNumber: Boolean = false,
-    paginationUiItemsChainStyle: PaginationUiItemsChainStyle,
+    paginationStyle: PaginationStyle,
     onPageClicked: (pageNumber: Int) -> Unit
 ) {
 
@@ -512,7 +512,7 @@ fun PaginationView(
                     paginationState = paginationState,
 
                     itemsSize = itemsSize,
-                    paginationUiItemsChainStyle = paginationUiItemsChainStyle,
+                    paginationStyle = paginationStyle,
 
                     numericPaginationItemContainerWidth = numericPaginationItemContainerWidth,
                     numericPaginationItemContainerHeight = numericPaginationItemContainerHeight,
@@ -553,7 +553,7 @@ fun PaginationView(
                     paginationState = paginationState,
 
                     itemsSize = itemsSize,
-                    paginationUiItemsChainStyle = paginationUiItemsChainStyle,
+                    paginationStyle = paginationStyle,
 
                     pillPaginationPillItemContainerWidth = pillPaginationPillItemContainerWidth,
                     pillPaginationPillItemContainerHeight = pillPaginationPillItemContainerHeight,
@@ -599,7 +599,7 @@ fun NumericPaginationWithBackwardAndForward(
     paginationState: PaginationState,
 
     itemsSize: Int,
-    paginationUiItemsChainStyle: PaginationUiItemsChainStyle,
+    paginationStyle: PaginationStyle,
 
     numericPaginationItemContainerWidth: Dp,
     numericPaginationItemContainerHeight: Dp,
@@ -616,7 +616,7 @@ fun NumericPaginationWithBackwardAndForward(
     onPageClicked: (pageNumber: Int) -> Unit,
 ) {
     val horizontalAlignment =
-        if (paginationUiItemsChainStyle == PaginationUiItemsChainStyle.PACKED) {
+        if (paginationStyle == PaginationStyle.PACKED) {
             Arrangement.Center
         } else {
             Arrangement.SpaceBetween
@@ -647,7 +647,7 @@ fun NumericPaginationWithBackwardAndForward(
 
                 modifier = Modifier.fillMaxHeight()
                     .run {
-                        if (paginationUiItemsChainStyle == PaginationUiItemsChainStyle.PACKED) {
+                        if (paginationStyle == PaginationStyle.PACKED) {
                             wrapContentWidth()
                         } else {
                             width(0.dp)
@@ -948,7 +948,7 @@ fun PillPaginationWithBackwardAndForward(
     paginationState: PaginationState,
 
     itemsSize: Int,
-    paginationUiItemsChainStyle: PaginationUiItemsChainStyle,
+    paginationStyle: PaginationStyle,
 
     pillPaginationPillItemContainerWidth: Dp,
     pillPaginationPillItemContainerHeight: Dp,
@@ -965,7 +965,7 @@ fun PillPaginationWithBackwardAndForward(
     onPageClicked: (pageNumber: Int) -> Unit,
 ) {
     val horizontalAlignment =
-        if (paginationUiItemsChainStyle == PaginationUiItemsChainStyle.PACKED) {
+        if (paginationStyle == PaginationStyle.PACKED) {
             Arrangement.Center
         } else {
             Arrangement.SpaceBetween
@@ -996,7 +996,7 @@ fun PillPaginationWithBackwardAndForward(
 
                 modifier = Modifier.fillMaxHeight()
                     .run {
-                        if (paginationUiItemsChainStyle == PaginationUiItemsChainStyle.PACKED) {
+                        if (paginationStyle == PaginationStyle.PACKED) {
                             wrapContentWidth()
                         } else {
                             width(0.dp)
