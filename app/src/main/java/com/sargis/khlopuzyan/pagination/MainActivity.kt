@@ -15,8 +15,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sargis.khlopuzyan.pagination.ui.PaginationStyle
-import com.sargis.khlopuzyan.pagination.ui.PaginationView
+import com.sargis.khlopuzyan.pagination.ui.paginationView.PaginationStyle
+import com.sargis.khlopuzyan.pagination.ui.paginationView.PaginationView
 import com.sargis.khlopuzyan.pagination.ui.theme.PaginationTheme
 
 class MainActivity : ComponentActivity() {
@@ -70,7 +70,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     PaginationTheme {
-        PaginationView(paginationStyle = PaginationStyle.PACKED) { page ->
+        PaginationView(paginationStyle = PaginationStyle.PACKED) { _ ->
 
         }
     }

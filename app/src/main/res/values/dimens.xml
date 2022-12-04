@@ -37,6 +37,7 @@
 
     <dimen name="pill_pagination_item_border_stroke">2dp</dimen>
     <dimen name="pill_pagination_item_corner_radius">999dp</dimen>
+    <dimen name="backward_or_forward_item_corner_radius">8dp</dimen>
 
     <dimen name="pill_pagination_item_container_width">60dp</dimen>
     <dimen name="pill_pagination_item_container_height">40dp</dimen>
