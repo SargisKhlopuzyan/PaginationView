@@ -18,6 +18,7 @@ fun NumericPaginationWithBackwardAndForward(
     paginationState: PaginationState,
 
     itemsSize: Int,
+    hideInOnePageMode: Boolean,
     paginationStyle: PaginationStyle,
 
     numericPaginationItemContainerWidth: Dp,
@@ -49,7 +50,9 @@ fun NumericPaginationWithBackwardAndForward(
         horizontalArrangement = horizontalAlignment
     ) {
 
-        if (paginationState.pageUiItems.isNotEmpty()) {
+        val isPaginationViewVisible = paginationState.pageUiItems.isNotEmpty() && (hideInOnePageMode && paginationState.pageUiItems.size != 1)
+
+        if (isPaginationViewVisible) {
 
             BackwardOrForwardItemCompose(
                 selectedPosition = paginationState.selectedPosition,

@@ -37,9 +37,9 @@ class MainActivity : ComponentActivity() {
 //                        val paginationViewHeight = 80.dp
                         val paginationViewWidth = 480.dp
 
-                        val pagesCount = 15 //dataList: List<Int>,
+                        val pagesCount = 22 //dataList: List<Int>,
                         val selectedPagePosition = 1 //currentPage: Int,
-                        val alwaysShowNumber = false
+                        val alwaysShowNumber = true
 
                         val paginationStyle = PaginationStyle.SPREAD
 
