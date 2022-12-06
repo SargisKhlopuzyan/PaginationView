@@ -1,4 +1,4 @@
-package com.sargis.khlopuzyan.pagination.ui.paginationView
+package com.sargis.khlopuzyan.pagination_view
 
 /**
  * Created by Sargis Khlopuzyan on 11/30/2022.

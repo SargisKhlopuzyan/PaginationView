@@ -1,4 +1,4 @@
-package com.sargis.khlopuzyan.pagination.ui.paginationView.numericPagination
+package com.sargis.khlopuzyan.pagination_view.numericPagination
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
@@ -11,11 +11,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.Dp
-import com.sargis.khlopuzyan.pagination.R
-import com.sargis.khlopuzyan.pagination.ui.paginationView.NumericPageUiItem
-import com.sargis.khlopuzyan.pagination.ui.theme.NumericPaginationItemText
+import com.sargis.khlopuzyan.pagination_view.NumericPageUiItem
+import com.sargis.khlopuzyan.pagination_view.theme.NumericPaginationItemText
 
 /**
  * Created by Sargis Khlopuzyan on 12/5/2022.
@@ -30,7 +28,7 @@ fun NumericPaginationNumericItem(
     numericPaginationItemContainerHeight: Dp,
     numericPaginationItemWidth: Dp,
     numericPaginationItemHeight: Dp,
-    spaceBetweenNumericPaginationItems: Dp,
+    spaceBetweenPaginationItems: Dp,
     numericPaginationItemCornerRadius: Dp,
     numericPaginationItemBorderStroke: Dp,
     //
@@ -43,7 +41,7 @@ fun NumericPaginationNumericItem(
     ) {
 
         if (numericPageUiItemsSize > 1 && numericPageItem.uiPageIndex != 1) {
-            Spacer(modifier = Modifier.width(spaceBetweenNumericPaginationItems / 2))
+            Spacer(modifier = Modifier.width(spaceBetweenPaginationItems / 2))
         }
 
         Box(
@@ -89,7 +87,7 @@ fun NumericPaginationNumericItem(
         }
 
         if (numericPageUiItemsSize > 1 && numericPageItem.uiPageIndex != numericPageUiItemsSize) {
-            Spacer(modifier = Modifier.width(spaceBetweenNumericPaginationItems / 2))
+            Spacer(modifier = Modifier.width(spaceBetweenPaginationItems / 2))
         }
 
     }

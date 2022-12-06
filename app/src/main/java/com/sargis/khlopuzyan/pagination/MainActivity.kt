@@ -15,8 +15,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sargis.khlopuzyan.pagination.ui.paginationView.PaginationStyle
-import com.sargis.khlopuzyan.pagination.ui.paginationView.PaginationView
+import com.sargis.khlopuzyan.pagination_view.PaginationStyle
+import com.sargis.khlopuzyan.pagination_view.PaginationView
 import com.sargis.khlopuzyan.pagination.ui.theme.PaginationTheme
 
 class MainActivity : ComponentActivity() {
@@ -37,10 +37,10 @@ class MainActivity : ComponentActivity() {
 //                        val paginationViewHeight = 80.dp
                         val paginationViewWidth = 480.dp
 
-                        val pagesCount = 22 //dataList: List<Int>,
+                        val pagesCount = 4 //dataList: List<Int>,
                         val selectedPagePosition = 1 //currentPage: Int,
-                        val alwaysShowNumber = true
-
+                        val alwaysShowNumber = false
+                        val hideViewPagerInOnePageMode = false
                         val paginationStyle = PaginationStyle.SPREAD
 
                         Box(
@@ -54,6 +54,7 @@ class MainActivity : ComponentActivity() {
                                 itemsSize = pagesCount,
                                 selectedPageIndex = selectedPagePosition,
                                 alwaysShowNumber = alwaysShowNumber,
+                                hideViewPagerInOnePageMode = hideViewPagerInOnePageMode,
                                 paginationStyle = paginationStyle,
                             ) { page ->
                                 Log.e("PAGINATION_VIEW", "page $page clicked")

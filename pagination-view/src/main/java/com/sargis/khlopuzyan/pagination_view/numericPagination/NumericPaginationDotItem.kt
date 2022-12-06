@@ -1,4 +1,4 @@
-package com.sargis.khlopuzyan.pagination.ui.paginationView.numericPagination
+package com.sargis.khlopuzyan.pagination_view.numericPagination
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
-import com.sargis.khlopuzyan.pagination.ui.theme.NumericPaginationItemText
+import com.sargis.khlopuzyan.pagination_view.theme.NumericPaginationItemText
 
 /**
  * Created by Sargis Khlopuzyan on 12/5/2022.
@@ -21,7 +21,7 @@ fun NumericPaginationDotItem(
     numericPaginationItemContainerHeight: Dp,
     numericPaginationItemWidth: Dp,
     numericPaginationItemHeight: Dp,
-    spaceBetweenNumericPaginationItems: Dp,
+    spaceBetweenPaginationItems: Dp,
 ) {
     Row(
         modifier = Modifier
@@ -29,7 +29,7 @@ fun NumericPaginationDotItem(
             .wrapContentWidth()
     ) {
 
-        Spacer(modifier = Modifier.width(spaceBetweenNumericPaginationItems / 2))
+        Spacer(modifier = Modifier.width(spaceBetweenPaginationItems / 2))
 
         Box(
             modifier = modifier
@@ -55,7 +55,7 @@ fun NumericPaginationDotItem(
             }
         }
 
-        Spacer(modifier = Modifier.width(spaceBetweenNumericPaginationItems / 2))
+        Spacer(modifier = Modifier.width(spaceBetweenPaginationItems / 2))
     }
 
 }

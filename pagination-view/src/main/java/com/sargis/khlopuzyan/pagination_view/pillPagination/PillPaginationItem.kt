@@ -1,4 +1,4 @@
-package com.sargis.khlopuzyan.pagination.ui.paginationView.pillPagination
+package com.sargis.khlopuzyan.pagination_view.pillPagination
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import com.sargis.khlopuzyan.pagination.ui.paginationView.PillPageUiItem
+import com.sargis.khlopuzyan.pagination_view.PillPageUiItem
 
 /**
  * Created by Sargis Khlopuzyan on 12/5/2022.
@@ -27,7 +27,7 @@ fun PillPaginationItem(
     pillPaginationItemContainerHeight: Dp,
     pillPaginationItemWidth: Dp,
     pillPaginationItemHeight: Dp,
-    spaceBetweenPillPaginationItems: Dp,
+    spaceBetweenPaginationItems: Dp,
     pillPaginationItemCornerRadius: Dp,
     pillPaginationItemBorderStroke: Dp,
     //
@@ -40,7 +40,7 @@ fun PillPaginationItem(
     ) {
 
         if (pillPageUiItemsSize > 1 && pillPageUiItem.uiPageIndex != 1) {
-            Spacer(modifier = Modifier.width(spaceBetweenPillPaginationItems / 2))
+            Spacer(modifier = Modifier.width(spaceBetweenPaginationItems / 2))
         }
 
         Box(
@@ -82,7 +82,7 @@ fun PillPaginationItem(
         }
 
         if (pillPageUiItemsSize > 1 && pillPageUiItem.uiPageIndex != pillPageUiItemsSize) {
-            Spacer(modifier = Modifier.width(spaceBetweenPillPaginationItems / 2))
+            Spacer(modifier = Modifier.width(spaceBetweenPaginationItems / 2))
         }
 
     }

@@ -1,4 +1,4 @@
-package com.sargis.khlopuzyan.pagination.ui.paginationView.backwardOrForwardItem
+package com.sargis.khlopuzyan.pagination_view.backwardOrForwardItem
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -11,7 +11,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
-import com.sargis.khlopuzyan.pagination.R
+import com.sargis.khlopuzyan.pagination_view.R
 
 /**
  * Created by Sargis Khlopuzyan on 12/5/2022.
