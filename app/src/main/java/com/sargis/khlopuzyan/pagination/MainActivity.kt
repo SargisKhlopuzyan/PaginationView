@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
 //                        val paginationViewHeight = 80.dp
                         val paginationViewWidth = 480.dp
 
-                        val pagesCount = 4 //dataList: List<Int>,
+                        val pagesCount = 44 //dataList: List<Int>,
                         val selectedPagePosition = 1 //currentPage: Int,
                         val alwaysShowNumber = false
                         val hideViewPagerInOnePageMode = false
