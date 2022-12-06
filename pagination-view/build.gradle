@@ -56,7 +56,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
 
-                groupId = 'com.github.sargiskhlopuzyan'
+                groupId = 'com.github.SargisKhlopuzyan'
                 artifactId = 'pagination-view-compose'
                 version = '1.0'
             }
