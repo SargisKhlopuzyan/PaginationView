@@ -21,6 +21,7 @@ import com.sargis.khlopuzyan.pagination_view.numericPagination.PaginationWithBac
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun PaginationView(
+    modifier: Modifier = Modifier,
     itemsSize: Int = 0,
     selectedPageIndex: Int = 0,
     alwaysShowNumber: Boolean = false,
@@ -116,9 +117,7 @@ fun PaginationView(
     val anchors = mapOf(0f to 0, sizePx to 1) // Maps anchor points (in px) to states
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .swipeable(
+        modifier = modifier.swipeable(
                 state = rememberSwipeableState(
                     initialValue = swipeableState.currentValue,
                     confirmStateChange = {
