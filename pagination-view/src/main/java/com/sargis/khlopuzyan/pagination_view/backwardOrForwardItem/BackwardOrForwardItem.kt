@@ -24,13 +24,13 @@ fun BackwardOrForwardItemCompose(
     selectedPosition: Int,
     itemsSize: Int,
     isBackwardIcon: Boolean,
-    animateOnPressEvent: Boolean,
+    isClickAnimationEnabled: Boolean,
 
     backwardOrForwardItemContainerWidth: Dp,
     backwardOrForwardItemContainerHeight: Dp,
     backwardOrForwardItemWidth: Dp,
     backwardOrForwardItemHeight: Dp,
-    spaceBetweenBackwardOrForwardItemAndPaginationItem: Dp,
+    spaceBetweenBackwardOrForwardItemAndPaginationViewItem: Dp,
     backwardOrForwardItemCornerRadius: Dp,
 
     backwardOrForwardItemClicked: (page: Int) -> Unit
@@ -42,7 +42,7 @@ fun BackwardOrForwardItemCompose(
         if (!isBackwardIcon) {
             Spacer(
                 modifier = Modifier.width(
-                    spaceBetweenBackwardOrForwardItemAndPaginationItem
+                    spaceBetweenBackwardOrForwardItemAndPaginationViewItem
                 )
             )
         }
@@ -84,7 +84,7 @@ fun BackwardOrForwardItemCompose(
                     modifier = Modifier
                         .matchParentSize()
                         .clickable(
-                            indication = if (!animateOnPressEvent) null else LocalIndication.current, interactionSource = remember { MutableInteractionSource() }
+                            indication = if (!isClickAnimationEnabled) null else LocalIndication.current, interactionSource = remember { MutableInteractionSource() }
                         ) {
                             if (isBackwardIcon && selectedPosition != 1) {
                                 backwardOrForwardItemClicked(selectedPosition - 1)
@@ -99,7 +99,7 @@ fun BackwardOrForwardItemCompose(
         if (isBackwardIcon) {
             Spacer(
                 modifier = Modifier.width(
-                    spaceBetweenBackwardOrForwardItemAndPaginationItem
+                    spaceBetweenBackwardOrForwardItemAndPaginationViewItem
                 )
             )
         }

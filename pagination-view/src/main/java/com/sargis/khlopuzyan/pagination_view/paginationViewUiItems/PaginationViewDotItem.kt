@@ -1,4 +1,4 @@
-package com.sargis.khlopuzyan.pagination_view.numericPagination
+package com.sargis.khlopuzyan.pagination_view.paginationViewUiItems
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -8,20 +8,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
-import com.sargis.khlopuzyan.pagination_view.theme.NumericPaginationItemText
+import com.sargis.khlopuzyan.pagination_view.theme.PaginationViewNumericItemText
 
 /**
  * Created by Sargis Khlopuzyan on 12/5/2022.
  */
 @Composable
-fun NumericPaginationDotItem(
+fun PaginationViewDotItem(
     modifier: Modifier = Modifier,
     //
-    numericPaginationItemContainerWidth: Dp,
-    numericPaginationItemContainerHeight: Dp,
-    numericPaginationItemWidth: Dp,
-    numericPaginationItemHeight: Dp,
-    spaceBetweenPaginationItems: Dp,
+    paginationViewDotItemContainerWidth: Dp,
+    paginationViewDotItemContainerHeight: Dp,
+    paginationViewDotItemWidth: Dp,
+    paginationViewDotItemHeight: Dp,
+    spaceBetweenPaginationViewItems: Dp,
 ) {
     Row(
         modifier = Modifier
@@ -29,18 +29,18 @@ fun NumericPaginationDotItem(
             .wrapContentWidth()
     ) {
 
-        Spacer(modifier = Modifier.width(spaceBetweenPaginationItems / 2))
+        Spacer(modifier = Modifier.width(spaceBetweenPaginationViewItems / 2))
 
         Box(
             modifier = modifier
-                .height(numericPaginationItemContainerHeight)
-                .width(numericPaginationItemContainerWidth),
+                .height(paginationViewDotItemContainerHeight)
+                .width(paginationViewDotItemContainerWidth),
             contentAlignment = Alignment.Center
         ) {
             Box(
                 modifier = modifier
-                    .height(numericPaginationItemHeight)
-                    .width(numericPaginationItemWidth)
+                    .height(paginationViewDotItemHeight)
+                    .width(paginationViewDotItemWidth)
             ) {
                 Text(
                     modifier = Modifier
@@ -49,13 +49,13 @@ fun NumericPaginationDotItem(
                         .align(Alignment.BottomCenter),
                     text = "...",
                     textAlign = TextAlign.Center,
-                    style = NumericPaginationItemText,
+                    style = PaginationViewNumericItemText,
                     color = Color.Black
                 )
             }
         }
 
-        Spacer(modifier = Modifier.width(spaceBetweenPaginationItems / 2))
+        Spacer(modifier = Modifier.width(spaceBetweenPaginationViewItems / 2))
     }
 
 }

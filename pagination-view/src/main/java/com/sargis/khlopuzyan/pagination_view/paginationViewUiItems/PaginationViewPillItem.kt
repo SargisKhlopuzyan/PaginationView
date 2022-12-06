@@ -1,4 +1,4 @@
-package com.sargis.khlopuzyan.pagination_view.pillPagination
+package com.sargis.khlopuzyan.pagination_view.paginationViewUiItems
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -11,25 +11,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import com.sargis.khlopuzyan.pagination_view.PillPageUiItem
+import com.sargis.khlopuzyan.pagination_view.data.PaginationViewPillUiItem
 
 /**
  * Created by Sargis Khlopuzyan on 12/5/2022.
  */
 @Composable
-fun PillPaginationItem(
+fun PaginationViewPillItem(
     modifier: Modifier = Modifier,
-    pillPageUiItem: PillPageUiItem,
+    pillPageUiItem: PaginationViewPillUiItem,
     pillPageUiItemsSize: Int,
     animateOnPressEvent: Boolean,
     //
-    pillPaginationItemContainerWidth: Dp,
-    pillPaginationItemContainerHeight: Dp,
-    pillPaginationItemWidth: Dp,
-    pillPaginationItemHeight: Dp,
-    spaceBetweenPaginationItems: Dp,
-    pillPaginationItemCornerRadius: Dp,
-    pillPaginationItemBorderStroke: Dp,
+    paginationViewPillItemContainerWidth: Dp,
+    paginationViewPillItemContainerHeight: Dp,
+    paginationViewPillItemWidth: Dp,
+    paginationViewPillItemHeight: Dp,
+    spaceBetweenPaginationViewItems: Dp,
+    paginationViewPillItemCornerRadius: Dp,
+    paginationViewPillItemBorderStroke: Dp,
     //
     pageClicked: (page: Int) -> Unit
 ) {
@@ -40,24 +40,24 @@ fun PillPaginationItem(
     ) {
 
         if (pillPageUiItemsSize > 1 && pillPageUiItem.uiPageIndex != 1) {
-            Spacer(modifier = Modifier.width(spaceBetweenPaginationItems / 2))
+            Spacer(modifier = Modifier.width(spaceBetweenPaginationViewItems / 2))
         }
 
         Box(
             modifier = modifier
-                .width(pillPaginationItemContainerWidth)
-                .height(pillPaginationItemContainerHeight), contentAlignment = Alignment.Center
+                .width(paginationViewPillItemContainerWidth)
+                .height(paginationViewPillItemContainerHeight), contentAlignment = Alignment.Center
         ) {
             Box(modifier = modifier
-                .width(pillPaginationItemWidth)
-                .height(pillPaginationItemHeight)
+                .width(paginationViewPillItemWidth)
+                .height(paginationViewPillItemHeight)
                 .border(
                     border = BorderStroke(
-                        width = pillPaginationItemBorderStroke, color = Color.Black
-                    ), shape = RoundedCornerShape(pillPaginationItemCornerRadius)
+                        width = paginationViewPillItemBorderStroke, color = Color.Black
+                    ), shape = RoundedCornerShape(paginationViewPillItemCornerRadius)
                 )
                 .clip(
-                    shape = RoundedCornerShape(pillPaginationItemCornerRadius)
+                    shape = RoundedCornerShape(paginationViewPillItemCornerRadius)
                 )
                 .background(
                     if (pillPageUiItem.isSelected) {
@@ -75,7 +75,7 @@ fun PillPaginationItem(
         }
 
         if (pillPageUiItemsSize > 1 && pillPageUiItem.uiPageIndex != pillPageUiItemsSize) {
-            Spacer(modifier = Modifier.width(spaceBetweenPaginationItems / 2))
+            Spacer(modifier = Modifier.width(spaceBetweenPaginationViewItems / 2))
         }
 
     }

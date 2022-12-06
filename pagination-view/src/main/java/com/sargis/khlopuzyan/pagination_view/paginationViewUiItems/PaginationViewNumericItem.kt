@@ -1,4 +1,4 @@
-package com.sargis.khlopuzyan.pagination_view.numericPagination
+package com.sargis.khlopuzyan.pagination_view.paginationViewUiItems
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.LocalIndication
@@ -15,26 +15,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import com.sargis.khlopuzyan.pagination_view.NumericPageUiItem
-import com.sargis.khlopuzyan.pagination_view.theme.NumericPaginationItemText
+import com.sargis.khlopuzyan.pagination_view.data.PaginationViewNumericUiItem
+import com.sargis.khlopuzyan.pagination_view.theme.PaginationViewNumericItemText
 
 /**
  * Created by Sargis Khlopuzyan on 12/5/2022.
  */
 @Composable
-fun NumericPaginationNumericItem(
+fun PaginationViewNumericItem(
     modifier: Modifier = Modifier,
-    numericPageItem: NumericPageUiItem,
-    numericPageUiItemsSize: Int,
+    paginationViewNumericUiItem: PaginationViewNumericUiItem,
+    paginationViewNumericUiItemsSize: Int,
     animateOnPressEvent: Boolean,
     //
-    numericPaginationItemContainerWidth: Dp,
-    numericPaginationItemContainerHeight: Dp,
-    numericPaginationItemWidth: Dp,
-    numericPaginationItemHeight: Dp,
-    spaceBetweenPaginationItems: Dp,
-    numericPaginationItemCornerRadius: Dp,
-    numericPaginationItemBorderStroke: Dp,
+    paginationViewNumericItemContainerWidth: Dp,
+    paginationViewNumericItemContainerHeight: Dp,
+    paginationViewNumericItemWidth: Dp,
+    paginationViewNumericItemHeight: Dp,
+    spaceBetweenPaginationViewItems: Dp,
+    paginationViewNumericItemCornerRadius: Dp,
+    paginationViewNumericItemBorderStroke: Dp,
     //
     pageClicked: (page: Int) -> Unit
 ) {
@@ -44,54 +44,54 @@ fun NumericPaginationNumericItem(
             .wrapContentWidth()
     ) {
 
-        if (numericPageUiItemsSize > 1 && numericPageItem.uiPageIndex != 1) {
-            Spacer(modifier = Modifier.width(spaceBetweenPaginationItems / 2))
+        if (paginationViewNumericUiItemsSize > 1 && paginationViewNumericUiItem.uiPageIndex != 1) {
+            Spacer(modifier = Modifier.width(spaceBetweenPaginationViewItems / 2))
         }
 
         Box(
             modifier = modifier
-                .height(numericPaginationItemContainerHeight)
-                .width(numericPaginationItemContainerWidth),
+                .height(paginationViewNumericItemContainerHeight)
+                .width(paginationViewNumericItemContainerWidth),
             contentAlignment = Alignment.Center
         ) {
             Box(
                 modifier = modifier
-                    .height(numericPaginationItemHeight)
-                    .width(numericPaginationItemWidth)
+                    .height(paginationViewNumericItemHeight)
+                    .width(paginationViewNumericItemWidth)
                     .border(
                         border = BorderStroke(
-                            width = numericPaginationItemBorderStroke,
-                            color = if (numericPageItem.isSelected) {
+                            width = paginationViewNumericItemBorderStroke,
+                            color = if (paginationViewNumericUiItem.isSelected) {
                                 Color.Black
                             } else {
                                 Color.Transparent
                             }
                         ),
-                        shape = RoundedCornerShape(numericPaginationItemCornerRadius)
+                        shape = RoundedCornerShape(paginationViewNumericItemCornerRadius)
                     )
                     .clip(
-                        shape = RoundedCornerShape(numericPaginationItemCornerRadius)
+                        shape = RoundedCornerShape(paginationViewNumericItemCornerRadius)
                     )
                     .clickable(
                         indication = if (!animateOnPressEvent) null else LocalIndication.current,
                         interactionSource = remember { MutableInteractionSource() }
                     ) {
-                        if (!numericPageItem.isSelected) {
-                            pageClicked(numericPageItem.page)
+                        if (!paginationViewNumericUiItem.isSelected) {
+                            pageClicked(paginationViewNumericUiItem.page)
                         }
                     }
             ) {
                 Text(
                     modifier = Modifier.align(Alignment.Center),
-                    text = "${numericPageItem.page}",
-                    style = NumericPaginationItemText,
+                    text = "${paginationViewNumericUiItem.page}",
+                    style = PaginationViewNumericItemText,
                     color = Color.Black
                 )
             }
         }
 
-        if (numericPageUiItemsSize > 1 && numericPageItem.uiPageIndex != numericPageUiItemsSize) {
-            Spacer(modifier = Modifier.width(spaceBetweenPaginationItems / 2))
+        if (paginationViewNumericUiItemsSize > 1 && paginationViewNumericUiItem.uiPageIndex != paginationViewNumericUiItemsSize) {
+            Spacer(modifier = Modifier.width(spaceBetweenPaginationViewItems / 2))
         }
 
     }

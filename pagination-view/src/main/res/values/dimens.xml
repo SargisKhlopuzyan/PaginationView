@@ -5,8 +5,12 @@
 
     <dimen name="pagination_View_height">80dp</dimen>
 
-    <dimen name="pagination_horizontal_space">24dp</dimen>
-    <dimen name="pagination_vertical_space">20dp</dimen>
+    <dimen name="pagination_view_horizontal_space">24dp</dimen>
+    <dimen name="pagination_view_vertical_space">20dp</dimen>
+
+    <dimen name="space_between_pagination_view_items">10dp</dimen>
+    <dimen name="space_between_backward_or_forward_item_and_pagination_view_item">6dp</dimen>
+
 
     <!-- Backward or Forward Item -->
 
@@ -16,37 +20,35 @@
     <dimen name="backward_or_forward_item_width">36dp</dimen>
     <dimen name="backward_or_forward_item_height">36dp</dimen>
 
-    <dimen name="space_between_pagination_items">10dp</dimen>
-    <dimen name="space_between_backward_or_forward_item_and_pagination_item">6dp</dimen>
-
     <dimen name="backward_or_forward_item_corner_radius">8dp</dimen>
 
-    <!-- Numeric Pagination -->
 
-    <dimen name="numeric_pagination_item_border_stroke">1.5dp</dimen>
-    <dimen name="numeric_pagination_item_corner_radius">8dp</dimen>
+    <!-- Pagination View Numeric Item -->
 
-    <dimen name="numeric_pagination_item_container_width">40dp</dimen>
-    <dimen name="numeric_pagination_item_container_height">40dp</dimen>
+    <dimen name="pagination_view_numeric_item_container_width">40dp</dimen>
+    <dimen name="pagination_view_numeric_item_container_height">40dp</dimen>
 
-    <dimen name="numeric_pagination_item_width">36dp</dimen>
-    <dimen name="numeric_pagination_item_height">36dp</dimen>
+    <dimen name="pagination_view_numeric_item_width">36dp</dimen>
+    <dimen name="pagination_view_numeric_item_height">36dp</dimen>
 
-    <!-- Pill Pagination -->
-
-    <dimen name="pill_pagination_item_border_stroke">2dp</dimen>
-    <dimen name="pill_pagination_item_corner_radius">999dp</dimen>
+    <dimen name="pagination_view_numeric_item_border_stroke">1.5dp</dimen>
+    <dimen name="pagination_view_numeric_item_corner_radius">8dp</dimen>
 
 
-    <dimen name="pill_pagination_item_container_width">60dp</dimen>
-    <dimen name="pill_pagination_item_container_height">40dp</dimen>
+    <!-- Pagination View Pill Item -->
 
-    <dimen name="pill_pagination_item_width">60dp</dimen>
-    <dimen name="pill_pagination_item_height">14dp</dimen>
+    <dimen name="pagination_view_pill_item_container_width">60dp</dimen>
+    <dimen name="pagination_view_pill_item_container_height">40dp</dimen>
 
-    <!-- Other -->
+    <dimen name="pagination_view_pill_item_width">60dp</dimen>
+    <dimen name="pagination_view_pill_item_height">14dp</dimen>
 
-    <dimen name="dp_14">14dp</dimen>
+    <dimen name="pagination_view_pill_item_border_stroke">2dp</dimen>
+    <dimen name="pagination_view_pill_item_corner_radius">999dp</dimen>
+
+
+    <!-- Text sizes -->
+
     <dimen name="sp_18">18sp</dimen>
 
 </resources>

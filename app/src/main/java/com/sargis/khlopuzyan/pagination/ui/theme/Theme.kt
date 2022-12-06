@@ -49,22 +49,3 @@ fun PaginationTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compos
         content = content
     )
 }
-
-
-
-val DinFont = FontFamily(
-    Font(R.font.din_regular, weight = FontWeight.Normal),
-    Font(R.font.din_medium, weight = FontWeight.Medium),
-    Font(R.font.din_bold, weight = FontWeight.Bold),
-    Font(R.font.din_black, weight = FontWeight.Black),
-)
-
-val NumericPaginationItemText: TextStyle
-    @Composable
-    get() {
-        return TextStyle(
-            fontFamily = DinFont,
-            fontWeight = FontWeight.Bold,
-            fontSize = dimensionResource(R.dimen.sp_18).value.sp
-        )
-    }
