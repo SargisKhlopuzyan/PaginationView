@@ -1,10 +1,13 @@
 package com.sargis.khlopuzyan.pagination_view.backwardOrForwardItem
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,6 +24,7 @@ fun BackwardOrForwardItemCompose(
     selectedPosition: Int,
     itemsSize: Int,
     isBackwardIcon: Boolean,
+    animateOnPressEvent: Boolean,
 
     backwardOrForwardItemContainerWidth: Dp,
     backwardOrForwardItemContainerHeight: Dp,
@@ -80,8 +84,7 @@ fun BackwardOrForwardItemCompose(
                     modifier = Modifier
                         .matchParentSize()
                         .clickable(
-                            // Uncomment to disable ripple effect when clicking
-//                        indication = null, interactionSource = remember { MutableInteractionSource() }
+                            indication = if (!animateOnPressEvent) null else LocalIndication.current, interactionSource = remember { MutableInteractionSource() }
                         ) {
                             if (isBackwardIcon && selectedPosition != 1) {
                                 backwardOrForwardItemClicked(selectedPosition - 1)

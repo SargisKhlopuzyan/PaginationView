@@ -18,6 +18,7 @@ import com.sargis.khlopuzyan.pagination_view.pillPagination.PillPaginationItem
 fun Pagination(
     modifier: Modifier = Modifier,
     pageUiItems: List<PageUiItem>,
+    animateOnPressEvent: Boolean,
     //
     paginationItemContainerWidth: Dp,
     paginationItemContainerHeight: Dp,
@@ -43,6 +44,7 @@ fun Pagination(
                     NumericPaginationNumericItem(
                         numericPageItem = pageUiItem,
                         numericPageUiItemsSize = pageUiItems.size,
+                        animateOnPressEvent = animateOnPressEvent,
                         //
                         numericPaginationItemContainerWidth = paginationItemContainerWidth,
                         numericPaginationItemContainerHeight = paginationItemContainerHeight,
@@ -68,6 +70,7 @@ fun Pagination(
                     PillPaginationItem(
                         pillPageUiItem = pageUiItem,
                         pillPageUiItemsSize = pageUiItems.size,
+                        animateOnPressEvent = animateOnPressEvent,
                         //
                         pillPaginationItemContainerWidth = paginationItemContainerWidth,
                         pillPaginationItemContainerHeight = paginationItemContainerHeight,

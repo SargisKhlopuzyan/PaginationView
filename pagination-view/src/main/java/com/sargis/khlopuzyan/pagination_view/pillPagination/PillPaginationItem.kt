@@ -1,12 +1,11 @@
 package com.sargis.khlopuzyan.pagination_view.pillPagination
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,6 +21,7 @@ fun PillPaginationItem(
     modifier: Modifier = Modifier,
     pillPageUiItem: PillPageUiItem,
     pillPageUiItemsSize: Int,
+    animateOnPressEvent: Boolean,
     //
     pillPaginationItemContainerWidth: Dp,
     pillPaginationItemContainerHeight: Dp,
@@ -46,39 +46,32 @@ fun PillPaginationItem(
         Box(
             modifier = modifier
                 .width(pillPaginationItemContainerWidth)
-                .height(pillPaginationItemContainerHeight),
-            contentAlignment = Alignment.Center
+                .height(pillPaginationItemContainerHeight), contentAlignment = Alignment.Center
         ) {
-            Box(
-                modifier = modifier
-                    .width(pillPaginationItemWidth)
-                    .height(pillPaginationItemHeight)
-                    .border(
-                        border = BorderStroke(
-                            width = pillPaginationItemBorderStroke,
-                            color = Color.Black
-                        ),
-                        shape = RoundedCornerShape(pillPaginationItemCornerRadius)
-                    )
-                    .clip(
-                        shape = RoundedCornerShape(pillPaginationItemCornerRadius)
-                    )
-                    .background(
-                        if (pillPageUiItem.isSelected) {
-                            Color.Black
-                        } else {
-                            Color.Transparent
-                        }
-                    )
-                    .clickable(
-                        // Uncomment to disable ripple effect when clicking
-//                        indication = null, interactionSource = remember { MutableInteractionSource() }
-                    ) {
-                        if (!pillPageUiItem.isSelected) {
-                            pageClicked(pillPageUiItem.page)
-                        }
+            Box(modifier = modifier
+                .width(pillPaginationItemWidth)
+                .height(pillPaginationItemHeight)
+                .border(
+                    border = BorderStroke(
+                        width = pillPaginationItemBorderStroke, color = Color.Black
+                    ), shape = RoundedCornerShape(pillPaginationItemCornerRadius)
+                )
+                .clip(
+                    shape = RoundedCornerShape(pillPaginationItemCornerRadius)
+                )
+                .background(
+                    if (pillPageUiItem.isSelected) {
+                        Color.Black
+                    } else {
+                        Color.Transparent
                     }
-            )
+                )
+                .clickable(indication = if (!animateOnPressEvent) null else LocalIndication.current,
+                    interactionSource = remember { MutableInteractionSource() }) {
+                    if (!pillPageUiItem.isSelected) {
+                        pageClicked(pillPageUiItem.page)
+                    }
+                })
         }
 
         if (pillPageUiItemsSize > 1 && pillPageUiItem.uiPageIndex != pillPageUiItemsSize) {

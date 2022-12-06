@@ -19,6 +19,7 @@ fun PaginationWithBackwardAndForward(
 
     itemsSize: Int,
     hideViewPagerInOnePageMode: Boolean,
+    animateOnPressEvent: Boolean,
     paginationStyle: PaginationStyle,
 
     paginationViewUiDimens: PaginationViewUiDimens,
@@ -47,6 +48,7 @@ fun PaginationWithBackwardAndForward(
                 selectedPosition = paginationState.selectedPosition,
                 itemsSize = itemsSize,
                 isBackwardIcon = true,
+                animateOnPressEvent = animateOnPressEvent,
                 //
                 backwardOrForwardItemContainerWidth = paginationViewUiDimens.backwardOrForwardItemContainerWidth,
                 backwardOrForwardItemContainerHeight = paginationViewUiDimens.backwardOrForwardItemContainerHeight,
@@ -70,6 +72,7 @@ fun PaginationWithBackwardAndForward(
                         }
                     },
                 pageUiItems = paginationState.pageUiItems,
+                animateOnPressEvent = animateOnPressEvent,
                 //
                 paginationItemContainerWidth = paginationViewUiDimens.paginationItemContainerWidth,
                 paginationItemContainerHeight = paginationViewUiDimens.paginationItemContainerHeight,
@@ -87,6 +90,7 @@ fun PaginationWithBackwardAndForward(
                 selectedPosition = paginationState.selectedPosition,
                 itemsSize = itemsSize,
                 isBackwardIcon = false,
+                animateOnPressEvent = animateOnPressEvent,
                 //
                 backwardOrForwardItemContainerWidth = paginationViewUiDimens.backwardOrForwardItemContainerWidth,
                 backwardOrForwardItemContainerHeight = paginationViewUiDimens.backwardOrForwardItemContainerHeight,

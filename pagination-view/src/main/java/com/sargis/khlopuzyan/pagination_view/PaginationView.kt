@@ -1,6 +1,5 @@
 package com.sargis.khlopuzyan.pagination_view
 
-import android.util.Log
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,6 +25,7 @@ fun PaginationView(
     selectedPageIndex: Int = 0,
     alwaysShowNumber: Boolean = false,
     hideViewPagerInOnePageMode: Boolean = true,
+    animateOnPressEvent: Boolean = false,
     paginationStyle: PaginationStyle,
 
     // PAGINATION VIEW
@@ -122,7 +122,6 @@ fun PaginationView(
                 state = rememberSwipeableState(
                     initialValue = swipeableState.currentValue,
                     confirmStateChange = {
-                        Log.e("LOG_TAG", "rememberSwipeableState => it : $it")
                         if (it == 0 && paginationState.selectedPosition != itemsSize) {
                             paginationState = PaginationState(
                                 selectedPosition = paginationState.selectedPosition + 1,
@@ -148,7 +147,6 @@ fun PaginationView(
                     }), //
                 anchors = anchors,
                 thresholds = { from, to ->
-                    Log.e("LOG_TAG", "rememberSwipeableState => from : $from  ||  to : $to")
                     FractionalThreshold(0.5f)
                 },
                 orientation = Orientation.Horizontal
@@ -176,9 +174,6 @@ fun PaginationView(
                             spaceBetweenBackwardOrForwardItemAndPaginationItem = spaceBetweenBackwardOrForwardItemAndPaginationItem.value
                         )
                     }
-
-                    Log.e("PAGINATION_VIEW", "Pagination Ui Items Max Count : $maxCount")
-                    Log.e("PAGINATION_VIEW", "coordinates.size : ${coordinates.size}")
 
                     maxPagesCount = maxCount
 
@@ -238,6 +233,7 @@ fun PaginationView(
             itemsSize = itemsSize,
             hideViewPagerInOnePageMode = hideViewPagerInOnePageMode,
             paginationStyle = paginationStyle,
+            animateOnPressEvent = animateOnPressEvent,
             paginationViewUiDimens = paginationViewUiDimens,
 
             onPageClicked = { page ->

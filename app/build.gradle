@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
-
 android {
     namespace 'com.sargis.khlopuzyan.pagination'
     compileSdk 32
@@ -52,7 +51,11 @@ android {
 
 dependencies {
 
+    implementation fileTree (dir: "libs", include: ["*.jar","*.aar"])
+
     implementation project(':pagination-view')
+
+//    implementation 'com.github.SargisKhlopuzyan:PaginationView:1.0.1'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'

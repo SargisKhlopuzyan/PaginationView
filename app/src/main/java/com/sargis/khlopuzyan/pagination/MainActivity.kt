@@ -41,6 +41,7 @@ class MainActivity : ComponentActivity() {
                         val selectedPagePosition = 1 //currentPage: Int,
                         val alwaysShowNumber = false
                         val hideViewPagerInOnePageMode = false
+                        val animateOnPressEvent = false
                         val paginationStyle = PaginationStyle.SPREAD
 
                         Box(
@@ -50,11 +51,13 @@ class MainActivity : ComponentActivity() {
                                 .background(Color(0x203F51B5)),
                             contentAlignment = Alignment.Center
                         ) {
+
                             PaginationView(
                                 itemsSize = pagesCount,
                                 selectedPageIndex = selectedPagePosition,
                                 alwaysShowNumber = alwaysShowNumber,
                                 hideViewPagerInOnePageMode = hideViewPagerInOnePageMode,
+                                animateOnPressEvent = animateOnPressEvent,
                                 paginationStyle = paginationStyle,
                             ) { page ->
                                 Log.e("PAGINATION_VIEW", "page $page clicked")
