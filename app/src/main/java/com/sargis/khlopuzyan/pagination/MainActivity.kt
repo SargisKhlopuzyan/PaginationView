@@ -31,6 +31,8 @@ class MainActivity : ComponentActivity() {
         // Tests
         // *********************
         val _pagesStateFlow = MutableStateFlow<List<Int>>(listOf())
+//        val _pagesStateFlow = MutableStateFlow<List<Int>>(listOf(1, 2, 3, 4))
+//        _pagesStateFlow.value = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
         val pagesStateFlow = _pagesStateFlow.asStateFlow()
 
         val _swipeDirectionStateFlow = MutableStateFlow<SwipeDirection>(SwipeDirection.NON)
@@ -43,22 +45,21 @@ class MainActivity : ComponentActivity() {
             _pagesStateFlow.value = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
         }
 
-        lifecycleScope.launch {
-            delay(2500)
-            _swipeDirectionStateFlow.value = SwipeDirection.RIGHT
-            delay(5000)
-            _swipeDirectionStateFlow.value = SwipeDirection.LEFT
-        }
+//        lifecycleScope.launch {
+//            delay(2500)
+//            _swipeDirectionStateFlow.value = SwipeDirection.RIGHT
+//            delay(5000)
+//            _swipeDirectionStateFlow.value = SwipeDirection.LEFT
+//        }
 
         // *********************
 
         setContent {
-            Log.e("LOG_TAG", "SET_CONTENT")
-
             val pages = pagesStateFlow.collectAsState()
             val swipePagination = swipeDirectionStateFlow.collectAsState()
 //          val paginationViewHeight = dimensionResource(id = R.dimen.pagination_View_height)
             val paginationViewHeight = 80.dp
+            val selectedPage = 1
             val alwaysShowNumber = false
             val hideViewPagerInOnePageMode = false
             val animateOnPressEvent = false
@@ -70,6 +71,7 @@ class MainActivity : ComponentActivity() {
                     .fillMaxWidth()
                     .background(Color(0x203F51B5)),
                 pagesSize = pages.value.size,
+                selectedPage = selectedPage,
                 swipePagination = swipePagination.value,
                 alwaysShowNumber = alwaysShowNumber,
                 hideViewPagerInOnePageMode = hideViewPagerInOnePageMode,

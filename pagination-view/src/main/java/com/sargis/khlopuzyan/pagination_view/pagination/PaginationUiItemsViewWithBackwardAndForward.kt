@@ -30,12 +30,17 @@ fun PaginationItemsViewWithBackwardAndForward(
         )
     }
 
+
+    // TODO ******************
+
     if (paginationState.paginationViewUiItems.size != paginationViewInfo.paginationViewUiItems.size) {
         paginationState = PaginationState(
             selectedPage = paginationViewInfo.selectedPage,
             paginationViewUiItems = paginationViewInfo.paginationViewUiItems
         )
     }
+
+    // TODO ******************
 
 
     val isPaginationViewVisible =

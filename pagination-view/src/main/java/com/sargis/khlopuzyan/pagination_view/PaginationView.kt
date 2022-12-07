@@ -1,6 +1,5 @@
 package com.sargis.khlopuzyan.pagination_view
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -41,8 +40,6 @@ fun PaginationView(
 
     onPageClicked: (pageNumber: Int) -> Unit
 ) {
-
-    Log.e("LOG_TAG", "PAGINATION_VIEW")
 
     var paginationViewWidth by remember {
         mutableStateOf(-1f)
@@ -85,11 +82,6 @@ fun PaginationView(
                 )
             }
 
-            Log.e("LOG_TAG_TT", "pagesSize : $pagesSize")
-            Log.e("LOG_TAG_TT", "alwaysShowNumber : $alwaysShowNumber")
-            Log.e("LOG_TAG_TT", "paginationViewUiItemsMaxCount : $paginationViewUiItemsMaxCount")
-            Log.e("LOG_TAG_TT", "selectedPage : $selectedPage")
-
             val paginationViewUiItems = initPaginationViewUiItems(
                 pagesSize = pagesSize,
                 alwaysShowNumber = alwaysShowNumber,
@@ -97,23 +89,21 @@ fun PaginationView(
                 selectedPage = selectedPage
             )
 
-            Log.e("LOG_TAG_TT", "paginationViewUiItems.size : ${paginationViewUiItems.size}")
-            PaginationItemsViewWithBackwardAndForward(
-                paginationViewInfo = PaginationViewInfo(
-                    pagesSize = pagesSize,
-                    selectedPage = selectedPage,
-//                    swipePagination = swipePagination,
-                    alwaysShowNumber = alwaysShowNumber,
-                    hideViewPagerInOnePageMode = hideViewPagerInOnePageMode,
-                    animateOnPressEvent = animateOnPressEvent,
-                    paginationViewStyle = paginationViewStyle,
+            val paginationViewInfo = PaginationViewInfo(
+                pagesSize,
+                selectedPage,
+                alwaysShowNumber,
+                hideViewPagerInOnePageMode,
+                animateOnPressEvent,
+                paginationViewStyle,
+                paginationViewUiItemsMaxCount,
+                paginationViewUiItems
+            )
 
-                    paginationViewUiItemsMaxCount = paginationViewUiItemsMaxCount,
-                    paginationViewUiItems = paginationViewUiItems
-                ),
+            PaginationItemsViewWithBackwardAndForward(
+                paginationViewInfo = paginationViewInfo,
                 paginationViewDimens = paginationViewDimens,
                 onPageClicked = { page ->
-
                     onPageClicked(page)
                 }
             )
