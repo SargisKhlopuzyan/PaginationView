@@ -21,8 +21,8 @@ import com.sargis.khlopuzyan.pagination_view.data.PaginationViewBackwardOrForwar
  */
 @Composable
 fun BackwardOrForwardItemCompose(
-    selectedPosition: Int,
-    itemsSize: Int,
+    selectedPage: Int,
+    pagesSize: Int,
     isBackwardIcon: Boolean,
     isClickAnimationEnabled: Boolean,
     paginationViewBackwardOrForwardItemDimens: PaginationViewBackwardOrForwardItemDimens,
@@ -48,13 +48,13 @@ fun BackwardOrForwardItemCompose(
             ) {
 
                 val iconPainter = if (isBackwardIcon) {
-                    if (selectedPosition == 1) {
+                    if (selectedPage == 1) {
                         painterResource(id = R.drawable.ic_arrow_left_inactive)
                     } else {
                         painterResource(id = R.drawable.ic_arrow_left_active)
                     }
                 } else {
-                    if (selectedPosition == itemsSize) {
+                    if (selectedPage == pagesSize) {
                         painterResource(id = R.drawable.ic_arrow_right_inactive)
                     } else {
                         painterResource(id = R.drawable.ic_arrow_right_active)
@@ -74,10 +74,10 @@ fun BackwardOrForwardItemCompose(
                                 MutableInteractionSource()
                             }
                         ) {
-                            if (isBackwardIcon && selectedPosition != 1) {
-                                backwardOrForwardItemClicked(selectedPosition - 1)
-                            } else if (!isBackwardIcon && selectedPosition != itemsSize) {
-                                backwardOrForwardItemClicked(selectedPosition + 1)
+                            if (isBackwardIcon && selectedPage != 1) {
+                                backwardOrForwardItemClicked(selectedPage - 1)
+                            } else if (!isBackwardIcon && selectedPage != pagesSize) {
+                                backwardOrForwardItemClicked(selectedPage + 1)
                             }
                         }
                 )

@@ -28,7 +28,7 @@ fun initPaginationViewUiItems(
     pagesSize: Int,
     alwaysShowNumber: Boolean,
     paginationViewUiItemsMaxCount: Int,
-    selectedPageIndex: Int
+    selectedPage: Int
 ): List<PaginationViewUiItem> {
 
     val paginationViewUiItems = mutableListOf<PaginationViewUiItem>()
@@ -46,8 +46,8 @@ fun initPaginationViewUiItems(
                     paginationViewUiItems.add(
                         PaginationViewNumericUiItem(
                             page = it,
-                            uiPageIndex = it,
-                            isSelected = it == selectedPageIndex
+                            paginationViewUiItemIndex = it,
+                            isSelected = it == selectedPage
                         )
                     )
 
@@ -57,41 +57,41 @@ fun initPaginationViewUiItems(
             else -> {
 
                 // 1 2 3 4 5 6 |7| 8 9 10 11 ... 20
-                if (selectedPageIndex <= roundUpDivision(paginationViewUiItemsMaxCount, 2)) {
+                if (selectedPage <= roundUpDivision(paginationViewUiItemsMaxCount, 2)) {
 
                     (1..paginationViewUiItemsMaxCount - 2).forEach {
 
                         paginationViewUiItems.add(
                             PaginationViewNumericUiItem(
                                 page = it,
-                                uiPageIndex = it,
-                                isSelected = it == selectedPageIndex
+                                paginationViewUiItemIndex = it,
+                                isSelected = it == selectedPage
                             )
                         )
 
                     }
 
                     paginationViewUiItems.add(
-                        PaginationViewDotUiItem(uiPageIndex = paginationViewUiItemsMaxCount - 1)
+                        PaginationViewDotUiItem(paginationViewUiItemIndex = paginationViewUiItemsMaxCount - 1)
                     )
 
                     paginationViewUiItems.add(
                         PaginationViewNumericUiItem(
                             page = pagesSize,
-                            uiPageIndex = paginationViewUiItemsMaxCount,
+                            paginationViewUiItemIndex = paginationViewUiItemsMaxCount,
                             isSelected = false
                         )
                     )
 
                     // 1 ... 10 11 12 13 |14| 15 16 17 18 19 20
-                } else if (pagesSize - selectedPageIndex < roundUpDivision(paginationViewUiItemsMaxCount, 2)) {
+                } else if (pagesSize - selectedPage < roundUpDivision(paginationViewUiItemsMaxCount, 2)) {
 
                     paginationViewUiItems.add(
-                        PaginationViewNumericUiItem(page = 1, uiPageIndex = 1, isSelected = false)
+                        PaginationViewNumericUiItem(page = 1, paginationViewUiItemIndex = 1, isSelected = false)
                     )
 
                     paginationViewUiItems.add(
-                        PaginationViewDotUiItem(uiPageIndex = 2)
+                        PaginationViewDotUiItem(paginationViewUiItemIndex = 2)
                     )
 
                     val diff = pagesSize - paginationViewUiItemsMaxCount
@@ -101,8 +101,8 @@ fun initPaginationViewUiItems(
                         paginationViewUiItems.add(
                             PaginationViewNumericUiItem(
                                 page = it + diff,
-                                uiPageIndex = it,
-                                isSelected = it + diff == selectedPageIndex
+                                paginationViewUiItemIndex = it,
+                                isSelected = it + diff == selectedPage
                             )
                         )
 
@@ -112,35 +112,35 @@ fun initPaginationViewUiItems(
                 } else {
 
                     paginationViewUiItems.add(
-                        PaginationViewNumericUiItem(page = 1, uiPageIndex = 1, isSelected = false)
+                        PaginationViewNumericUiItem(page = 1, paginationViewUiItemIndex = 1, isSelected = false)
                     )
 
                     paginationViewUiItems.add(
-                        PaginationViewDotUiItem(uiPageIndex = 2)
+                        PaginationViewDotUiItem(paginationViewUiItemIndex = 2)
                     )
 
-                    val diff = selectedPageIndex - paginationViewUiItemsMaxCount / 2 - 1
+                    val diff = selectedPage - paginationViewUiItemsMaxCount / 2 - 1
 
                     (3..paginationViewUiItemsMaxCount - 2).forEach {
 
                         paginationViewUiItems.add(
                             PaginationViewNumericUiItem(
                                 page = it + diff,
-                                uiPageIndex = it,
-                                isSelected = it + diff == selectedPageIndex
+                                paginationViewUiItemIndex = it,
+                                isSelected = it + diff == selectedPage
                             )
                         )
 
                     }
 
                     paginationViewUiItems.add(
-                        PaginationViewDotUiItem(uiPageIndex = paginationViewUiItemsMaxCount - 1)
+                        PaginationViewDotUiItem(paginationViewUiItemIndex = paginationViewUiItemsMaxCount - 1)
                     )
 
                     paginationViewUiItems.add(
                         PaginationViewNumericUiItem(
                             page = pagesSize,
-                            uiPageIndex = paginationViewUiItemsMaxCount,
+                            paginationViewUiItemIndex = paginationViewUiItemsMaxCount,
                             isSelected = false
                         )
                     )
@@ -154,8 +154,8 @@ fun initPaginationViewUiItems(
             paginationViewUiItems.add(
                 PaginationViewPillUiItem(
                     page = it,
-                    uiPageIndex = it,
-                    isSelected = it == selectedPageIndex
+                    paginationViewUiItemIndex = it,
+                    isSelected = it == selectedPage
                 )
             )
         }

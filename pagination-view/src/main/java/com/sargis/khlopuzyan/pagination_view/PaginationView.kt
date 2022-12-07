@@ -1,5 +1,6 @@
 package com.sargis.khlopuzyan.pagination_view
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -11,9 +12,10 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.sargis.khlopuzyan.pagination_view.data.PaginationState
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewDimens
+import com.sargis.khlopuzyan.pagination_view.data.PaginationViewInfo
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewStyle
+import com.sargis.khlopuzyan.pagination_view.data.SwipeDirection
 import com.sargis.khlopuzyan.pagination_view.pagination.PaginationItemsViewWithBackwardAndForward
 import com.sargis.khlopuzyan.pagination_view.util.calculatePaginationViewUiItemsMaxCount
 import com.sargis.khlopuzyan.pagination_view.util.initPaginationViewDefaultDimens
@@ -29,6 +31,7 @@ fun PaginationView(
         .fillMaxWidth(),
     pagesSize: Int,
     selectedPage: Int = 1,
+    swipePagination: SwipeDirection = SwipeDirection.NON,
     alwaysShowNumber: Boolean = false,
     hideViewPagerInOnePageMode: Boolean = true,
     animateOnPressEvent: Boolean = false,
@@ -39,63 +42,10 @@ fun PaginationView(
     onPageClicked: (pageNumber: Int) -> Unit
 ) {
 
+    Log.e("LOG_TAG", "PAGINATION_VIEW")
+
     var paginationViewWidth by remember {
         mutableStateOf(-1f)
-    }
-
-    var paginationViewUiItemsMaxCount by remember {
-        mutableStateOf(0)
-    }
-
-    var paginationState by remember {
-        mutableStateOf(
-            PaginationState(
-                selectedPosition = selectedPage,
-                paginationViewUiItems = listOf()
-            )
-        )
-    }
-
-    SelectedPageChanged(selectedPage) { _ ->
-        paginationState = PaginationState(
-            selectedPosition = selectedPage,
-            paginationViewUiItems = initPaginationViewUiItems(
-                pagesSize = pagesSize,
-                alwaysShowNumber = alwaysShowNumber,
-                paginationViewUiItemsMaxCount = paginationViewUiItemsMaxCount,
-                selectedPageIndex = selectedPage
-            )
-        )
-    }
-
-    PagesSizeChanged(pagesSize) {
-        paginationViewUiItemsMaxCount = if (pagesSize > 5 || alwaysShowNumber) {
-            calculatePaginationViewUiItemsMaxCount(
-                containerWidth = paginationViewWidth,
-                paginationViewItemContainerWidth = paginationViewDimens.paginationViewNumericItemDimens.paginationViewItemContainerWidth.value,
-                backwardOrForwardItemContainerWidth = paginationViewDimens.paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemContainerWidth.value,
-                spaceBetweenPaginationViewItems = paginationViewDimens.spaceBetweenPaginationViewItems.value,
-                spaceBetweenBackwardOrForwardItemAndPaginationViewItem = paginationViewDimens.spaceBetweenBackwardOrForwardItemAndPaginationViewItem.value
-            )
-        } else {
-            calculatePaginationViewUiItemsMaxCount(
-                containerWidth = paginationViewWidth,
-                paginationViewItemContainerWidth = paginationViewDimens.paginationViewPillItemDimens.paginationViewItemContainerWidth.value,
-                backwardOrForwardItemContainerWidth = paginationViewDimens.paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemContainerWidth.value,
-                spaceBetweenPaginationViewItems = paginationViewDimens.spaceBetweenPaginationViewItems.value,
-                spaceBetweenBackwardOrForwardItemAndPaginationViewItem = paginationViewDimens.spaceBetweenBackwardOrForwardItemAndPaginationViewItem.value
-            )
-        }
-
-        paginationState = PaginationState(
-            selectedPosition = paginationState.selectedPosition,
-            paginationViewUiItems = initPaginationViewUiItems(
-                pagesSize = pagesSize,
-                alwaysShowNumber = alwaysShowNumber,
-                paginationViewUiItemsMaxCount = paginationViewUiItemsMaxCount,
-                selectedPageIndex = paginationState.selectedPosition
-            )
-        )
     }
 
     val density = LocalDensity.current.density
@@ -113,38 +63,62 @@ fun PaginationView(
             }
     ) {
 
-        PaginationItemsViewWithBackwardAndForward(
-            paginationState = paginationState,
-            itemsSize = pagesSize,
-            hideViewPagerInOnePageMode = hideViewPagerInOnePageMode,
-            paginationViewStyle = paginationViewStyle,
-            animateOnPressEvent = animateOnPressEvent,
-            paginationViewDimens = paginationViewDimens,
+        if (paginationViewWidth >= 0) {
 
-            onPageClicked = { page ->
-                paginationState = PaginationState(
-                    selectedPosition = page,
-                    paginationViewUiItems = initPaginationViewUiItems(
-                        pagesSize = pagesSize,
-                        alwaysShowNumber = alwaysShowNumber,
-                        paginationViewUiItemsMaxCount = paginationViewUiItemsMaxCount,
-                        selectedPageIndex = page
-                    )
+            val paginationViewUiItemsMaxCount = if (pagesSize == 0) {
+                0
+            } else if (pagesSize > 5 || alwaysShowNumber) {
+                calculatePaginationViewUiItemsMaxCount(
+                    containerWidth = paginationViewWidth,
+                    paginationViewItemContainerWidth = paginationViewDimens.paginationViewNumericItemDimens.paginationViewItemContainerWidth.value,
+                    backwardOrForwardItemContainerWidth = paginationViewDimens.paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemContainerWidth.value,
+                    spaceBetweenPaginationViewItems = paginationViewDimens.spaceBetweenPaginationViewItems.value,
+                    spaceBetweenBackwardOrForwardItemAndPaginationViewItem = paginationViewDimens.spaceBetweenBackwardOrForwardItemAndPaginationViewItem.value
                 )
-                onPageClicked(page)
+            } else {
+                calculatePaginationViewUiItemsMaxCount(
+                    containerWidth = paginationViewWidth,
+                    paginationViewItemContainerWidth = paginationViewDimens.paginationViewPillItemDimens.paginationViewItemContainerWidth.value,
+                    backwardOrForwardItemContainerWidth = paginationViewDimens.paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemContainerWidth.value,
+                    spaceBetweenPaginationViewItems = paginationViewDimens.spaceBetweenPaginationViewItems.value,
+                    spaceBetweenBackwardOrForwardItemAndPaginationViewItem = paginationViewDimens.spaceBetweenBackwardOrForwardItemAndPaginationViewItem.value
+                )
             }
-        )
+
+            Log.e("LOG_TAG_TT", "pagesSize : $pagesSize")
+            Log.e("LOG_TAG_TT", "alwaysShowNumber : $alwaysShowNumber")
+            Log.e("LOG_TAG_TT", "paginationViewUiItemsMaxCount : $paginationViewUiItemsMaxCount")
+            Log.e("LOG_TAG_TT", "selectedPage : $selectedPage")
+
+            val paginationViewUiItems = initPaginationViewUiItems(
+                pagesSize = pagesSize,
+                alwaysShowNumber = alwaysShowNumber,
+                paginationViewUiItemsMaxCount = paginationViewUiItemsMaxCount,
+                selectedPage = selectedPage
+            )
+
+            Log.e("LOG_TAG_TT", "paginationViewUiItems.size : ${paginationViewUiItems.size}")
+            PaginationItemsViewWithBackwardAndForward(
+                paginationViewInfo = PaginationViewInfo(
+                    pagesSize = pagesSize,
+                    selectedPage = selectedPage,
+//                    swipePagination = swipePagination,
+                    alwaysShowNumber = alwaysShowNumber,
+                    hideViewPagerInOnePageMode = hideViewPagerInOnePageMode,
+                    animateOnPressEvent = animateOnPressEvent,
+                    paginationViewStyle = paginationViewStyle,
+
+                    paginationViewUiItemsMaxCount = paginationViewUiItemsMaxCount,
+                    paginationViewUiItems = paginationViewUiItems
+                ),
+                paginationViewDimens = paginationViewDimens,
+                onPageClicked = { page ->
+
+                    onPageClicked(page)
+                }
+            )
+        }
     }
-}
-
-@Composable
-fun PagesSizeChanged(pages: Int, callback: (pages: Int) -> Unit) {
-    callback(pages)
-}
-
-@Composable
-fun SelectedPageChanged(selectedPage: Int, callback: (page: Int) -> Unit) {
-    callback(selectedPage)
 }
 
 @Preview(showBackground = true)

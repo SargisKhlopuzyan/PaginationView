@@ -4,27 +4,27 @@ package com.sargis.khlopuzyan.pagination_view.data
  * Created by Sargis Khlopuzyan on 11/30/2022.
  */
 sealed class PaginationViewUiItem {
-    abstract val uiPageIndex: Int
+    abstract val paginationViewUiItemIndex: Int
 }
 
 data class PaginationViewNumericUiItem(
     val page: Int,
-    override val uiPageIndex: Int,
+    override val paginationViewUiItemIndex: Int,
     var isSelected: Boolean = false
 ) : PaginationViewUiItem()
 
 data class PaginationViewDotUiItem(
-    override val uiPageIndex: Int
+    override val paginationViewUiItemIndex: Int
 ) : PaginationViewUiItem()
 
 data class PaginationViewPillUiItem(
     val page: Int,
-    override val uiPageIndex: Int,
+    override val paginationViewUiItemIndex: Int,
     var isSelected: Boolean = false
 ) : PaginationViewUiItem()
 
 
 data class PaginationState(
-    val selectedPosition: Int,
+    val selectedPage: Int,
     val paginationViewUiItems: List<PaginationViewUiItem>
 )

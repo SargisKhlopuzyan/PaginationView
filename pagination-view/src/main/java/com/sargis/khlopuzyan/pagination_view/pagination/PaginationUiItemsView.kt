@@ -28,7 +28,7 @@ fun PaginationItemsView(
     ) {
         (paginationViewUiItems.indices).forEach {
 
-            if (paginationViewUiItems.size > 1 && paginationViewUiItems[it].uiPageIndex != 1) {
+            if (paginationViewUiItems.size > 1 && paginationViewUiItems[it].paginationViewUiItemIndex != 1) {
                 Spacer(modifier = Modifier.width(paginationViewDimens.spaceBetweenPaginationViewItems / 2))
             }
 
@@ -56,7 +56,7 @@ fun PaginationItemsView(
                 }
             }
 
-            if (paginationViewUiItems.size > 1 && paginationViewUiItems[it].uiPageIndex != paginationViewUiItems.size) {
+            if (paginationViewUiItems.size > 1 && paginationViewUiItems[it].paginationViewUiItemIndex != paginationViewUiItems.size) {
                 Spacer(modifier = Modifier.width(paginationViewDimens.spaceBetweenPaginationViewItems / 2))
             }
         }
