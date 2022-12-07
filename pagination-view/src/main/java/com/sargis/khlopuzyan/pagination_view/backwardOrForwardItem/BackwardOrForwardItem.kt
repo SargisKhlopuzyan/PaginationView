@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.Dp
 import com.sargis.khlopuzyan.pagination_view.R
+import com.sargis.khlopuzyan.pagination_view.data.PaginationViewBackwardOrForwardItemDimens
 
 /**
  * Created by Sargis Khlopuzyan on 12/5/2022.
@@ -25,40 +25,25 @@ fun BackwardOrForwardItemCompose(
     itemsSize: Int,
     isBackwardIcon: Boolean,
     isClickAnimationEnabled: Boolean,
-
-    backwardOrForwardItemContainerWidth: Dp,
-    backwardOrForwardItemContainerHeight: Dp,
-    backwardOrForwardItemWidth: Dp,
-    backwardOrForwardItemHeight: Dp,
-    spaceBetweenBackwardOrForwardItemAndPaginationViewItem: Dp,
-    backwardOrForwardItemCornerRadius: Dp,
-
+    paginationViewBackwardOrForwardItemDimens: PaginationViewBackwardOrForwardItemDimens,
     backwardOrForwardItemClicked: (page: Int) -> Unit
 ) {
     Row(
         modifier = Modifier.wrapContentSize()
     ) {
 
-        if (!isBackwardIcon) {
-            Spacer(
-                modifier = Modifier.width(
-                    spaceBetweenBackwardOrForwardItemAndPaginationViewItem
-                )
-            )
-        }
-
         Box(
             modifier = Modifier
-                .height(backwardOrForwardItemContainerHeight)
-                .width(backwardOrForwardItemContainerWidth),
+                .height(paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemContainerHeight)
+                .width(paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemContainerWidth),
             contentAlignment = Alignment.Center
         ) {
             Box(
                 modifier = Modifier
-                    .height(backwardOrForwardItemHeight)
-                    .width(backwardOrForwardItemWidth)
+                    .height(paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemHeight)
+                    .width(paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemWidth)
                     .clip(
-                        shape = RoundedCornerShape(backwardOrForwardItemCornerRadius)
+                        shape = RoundedCornerShape(paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemCornerRadius)
                     )
             ) {
 
@@ -84,7 +69,10 @@ fun BackwardOrForwardItemCompose(
                     modifier = Modifier
                         .matchParentSize()
                         .clickable(
-                            indication = if (!isClickAnimationEnabled) null else LocalIndication.current, interactionSource = remember { MutableInteractionSource() }
+                            indication = if (!isClickAnimationEnabled) null else LocalIndication.current,
+                            interactionSource = remember {
+                                MutableInteractionSource()
+                            }
                         ) {
                             if (isBackwardIcon && selectedPosition != 1) {
                                 backwardOrForwardItemClicked(selectedPosition - 1)
@@ -95,15 +83,6 @@ fun BackwardOrForwardItemCompose(
                 )
             }
         }
-
-        if (isBackwardIcon) {
-            Spacer(
-                modifier = Modifier.width(
-                    spaceBetweenBackwardOrForwardItemAndPaginationViewItem
-                )
-            )
-        }
-
     }
 
 }

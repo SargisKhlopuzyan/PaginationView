@@ -1,9 +1,9 @@
 package com.sargis.khlopuzyan.pagination_view.util
 
-import com.sargis.khlopuzyan.pagination_view.data.PaginationViewDotUiItem
-import com.sargis.khlopuzyan.pagination_view.data.PaginationViewNumericUiItem
-import com.sargis.khlopuzyan.pagination_view.data.PaginationViewPillUiItem
-import com.sargis.khlopuzyan.pagination_view.data.PaginationViewUiItem
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.dimensionResource
+import com.sargis.khlopuzyan.pagination_view.R
+import com.sargis.khlopuzyan.pagination_view.data.*
 
 /**
  * Created by Sargis Khlopuzyan on 12/5/2022.
@@ -32,6 +32,10 @@ fun initPaginationViewUiItems(
 ): List<PaginationViewUiItem> {
 
     val paginationViewUiItems = mutableListOf<PaginationViewUiItem>()
+
+    if (pagesSize == 0) {
+        return paginationViewUiItems
+    }
 
     if (pagesSize > 5 || alwaysShowNumber) {
         when {
@@ -160,6 +164,67 @@ fun initPaginationViewUiItems(
     return paginationViewUiItems
 }
 
-private fun roundUpDivision(num: Int, divisor: Int): Int {
-    return (num + divisor - 1) / divisor
-}
+@Composable
+fun initPaginationViewDefaultDimens() = PaginationViewDimens(
+
+    // PAGINATION VIEW
+    paginationViewHeight = dimensionResource(id = R.dimen.pagination_View_height),
+    paginationViewHorizontalSpace = dimensionResource(id = R.dimen.pagination_view_horizontal_space),
+    paginationViewVerticalSpace = dimensionResource(id = R.dimen.pagination_view_vertical_space),
+    spaceBetweenPaginationViewItems = dimensionResource(id = R.dimen.space_between_pagination_view_items),
+    spaceBetweenBackwardOrForwardItemAndPaginationViewItem = dimensionResource(id = R.dimen.space_between_backward_or_forward_item_and_pagination_view_item),
+
+    // BACKWARD or FORWARD ITEM
+    paginationViewBackwardOrForwardItemDimens = PaginationViewBackwardOrForwardItemDimens(
+        backwardOrForwardItemContainerWidth = dimensionResource(id = R.dimen.backward_or_forward_item_container_width),
+        backwardOrForwardItemContainerHeight = dimensionResource(id = R.dimen.backward_or_forward_item_container_height),
+
+        backwardOrForwardItemWidth = dimensionResource(id = R.dimen.backward_or_forward_item_width),
+        backwardOrForwardItemHeight = dimensionResource(id = R.dimen.backward_or_forward_item_height),
+
+        backwardOrForwardItemCornerRadius = dimensionResource(id = R.dimen.backward_or_forward_item_corner_radius)
+    ),
+
+    // PAGINATION VIEW NUMERIC ITEM
+    paginationViewNumericItemDimens = PaginationViewItemDimens(
+        paginationViewItemWidth = dimensionResource(id = R.dimen.pagination_view_numeric_item_width),
+        paginationViewItemHeight = dimensionResource(id = R.dimen.pagination_view_numeric_item_height),
+
+        paginationViewItemContainerWidth = dimensionResource(id = R.dimen.pagination_view_numeric_item_container_width),
+        paginationViewItemContainerHeight = dimensionResource(id = R.dimen.pagination_view_numeric_item_container_height),
+
+        paginationViewItemCornerRadius = dimensionResource(id = R.dimen.pagination_view_numeric_item_corner_radius),
+        paginationViewItemBorderStroke = dimensionResource(id = R.dimen.pagination_view_numeric_item_border_stroke),
+
+        spaceBetweenPaginationViewItems = dimensionResource(id = R.dimen.space_between_pagination_view_items)
+    ),
+
+    // PAGINATION VIEW DOT ITEM
+    paginationViewDotItemDimens = PaginationViewItemDimens(
+        paginationViewItemWidth = dimensionResource(id = R.dimen.pagination_view_numeric_item_width),
+        paginationViewItemHeight = dimensionResource(id = R.dimen.pagination_view_numeric_item_height),
+
+        paginationViewItemContainerWidth = dimensionResource(id = R.dimen.pagination_view_numeric_item_container_width),
+        paginationViewItemContainerHeight = dimensionResource(id = R.dimen.pagination_view_numeric_item_container_height),
+
+        paginationViewItemCornerRadius = dimensionResource(id = R.dimen.pagination_view_numeric_item_corner_radius),
+        paginationViewItemBorderStroke = dimensionResource(id = R.dimen.pagination_view_numeric_item_border_stroke),
+
+        spaceBetweenPaginationViewItems = dimensionResource(id = R.dimen.space_between_pagination_view_items)
+    ),
+
+    // PAGINATION VIEW PILL ITEM
+    paginationViewPillItemDimens = PaginationViewItemDimens(
+        paginationViewItemContainerWidth = dimensionResource(id = R.dimen.pagination_view_pill_item_container_width),
+        paginationViewItemContainerHeight = dimensionResource(id = R.dimen.pagination_view_pill_item_container_height),
+
+        paginationViewItemWidth = dimensionResource(id = R.dimen.pagination_view_pill_item_width),
+        paginationViewItemHeight = dimensionResource(id = R.dimen.pagination_view_pill_item_height),
+
+        paginationViewItemCornerRadius = dimensionResource(id = R.dimen.pagination_view_pill_item_corner_radius),
+        paginationViewItemBorderStroke = dimensionResource(id = R.dimen.pagination_view_pill_item_border_stroke),
+
+        spaceBetweenPaginationViewItems = dimensionResource(id = R.dimen.space_between_pagination_view_items)
+    )
+)
+

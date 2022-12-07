@@ -5,19 +5,17 @@ import androidx.compose.ui.unit.Dp
 /**
  * Created by Sargis Khlopuzyan on 12/6/2022.
  */
-data class PaginationViewUiDimens(
+data class PaginationViewItemDimens(
+
     val paginationViewItemContainerWidth: Dp,
     val paginationViewItemContainerHeight: Dp,
+
     val paginationViewItemWidth: Dp,
     val paginationViewItemHeight: Dp,
-    val spaceBetweenPaginationViewItems: Dp,
 
-    val backwardOrForwardItemContainerWidth: Dp,
-    val backwardOrForwardItemContainerHeight: Dp,
-    val backwardOrForwardItemWidth: Dp,
-    val backwardOrForwardItemHeight: Dp,
-    val spaceBetweenBackwardOrForwardItemAndPaginationViewItem: Dp,
     val paginationViewItemCornerRadius: Dp,
     val paginationViewItemBorderStroke: Dp,
-    val backwardOrForwardItemCornerRadius: Dp,
+
+    val spaceBetweenPaginationViewItems: Dp,
+
 )

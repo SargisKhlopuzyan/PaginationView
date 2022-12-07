@@ -4,30 +4,24 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sargis.khlopuzyan.pagination_view.data.PaginationState
-import com.sargis.khlopuzyan.pagination_view.data.PaginationViewStyle
-import com.sargis.khlopuzyan.pagination_view.data.PaginationViewUiDimens
 import com.sargis.khlopuzyan.pagination_view.backwardOrForwardItem.BackwardOrForwardItemCompose
+import com.sargis.khlopuzyan.pagination_view.data.PaginationState
+import com.sargis.khlopuzyan.pagination_view.data.PaginationViewDimens
+import com.sargis.khlopuzyan.pagination_view.data.PaginationViewStyle
 
 /**
  * Created by Sargis Khlopuzyan on 12/5/2022.
  */
 @Composable
-fun PaginationWithBackwardAndForward(
-
+fun PaginationItemsViewWithBackwardAndForward(
     paginationState: PaginationState,
-
     itemsSize: Int,
     hideViewPagerInOnePageMode: Boolean,
     animateOnPressEvent: Boolean,
     paginationViewStyle: PaginationViewStyle,
-
-    paginationViewUiDimens: PaginationViewUiDimens,
-
+    paginationViewDimens: PaginationViewDimens,
     onPageClicked: (pageNumber: Int) -> Unit
-
 ) {
-
     val isPaginationViewVisible =
         paginationState.paginationViewUiItems.isNotEmpty() && !(hideViewPagerInOnePageMode && paginationState.paginationViewUiItems.size == 1)
 
@@ -43,25 +37,23 @@ fun PaginationWithBackwardAndForward(
             modifier = Modifier.fillMaxSize(),
             horizontalArrangement = horizontalAlignment
         ) {
-
             BackwardOrForwardItemCompose(
                 selectedPosition = paginationState.selectedPosition,
                 itemsSize = itemsSize,
                 isBackwardIcon = true,
                 isClickAnimationEnabled = animateOnPressEvent,
-                //
-                backwardOrForwardItemContainerWidth = paginationViewUiDimens.backwardOrForwardItemContainerWidth,
-                backwardOrForwardItemContainerHeight = paginationViewUiDimens.backwardOrForwardItemContainerHeight,
-                backwardOrForwardItemWidth = paginationViewUiDimens.backwardOrForwardItemWidth,
-                backwardOrForwardItemHeight = paginationViewUiDimens.backwardOrForwardItemHeight,
-                spaceBetweenBackwardOrForwardItemAndPaginationViewItem = paginationViewUiDimens.spaceBetweenBackwardOrForwardItemAndPaginationViewItem,
-                backwardOrForwardItemCornerRadius = paginationViewUiDimens.backwardOrForwardItemCornerRadius
-                //
+                paginationViewBackwardOrForwardItemDimens = paginationViewDimens.paginationViewBackwardOrForwardItemDimens
             ) { page ->
                 onPageClicked(page)
             }
 
-            Pagination(
+            Spacer(
+                modifier = Modifier.width(
+                    paginationViewDimens.spaceBetweenBackwardOrForwardItemAndPaginationViewItem
+                )
+            )
+
+            PaginationItemsView(
                 modifier = Modifier.fillMaxHeight()
                     .run {
                         if (paginationViewStyle == PaginationViewStyle.PACKED) {
@@ -73,37 +65,26 @@ fun PaginationWithBackwardAndForward(
                     },
                 paginationViewUiItems = paginationState.paginationViewUiItems,
                 animateOnPressEvent = animateOnPressEvent,
-                //
-                paginationViewItemContainerWidth = paginationViewUiDimens.paginationViewItemContainerWidth,
-                paginationViewItemContainerHeight = paginationViewUiDimens.paginationViewItemContainerHeight,
-                paginationViewItemWidth = paginationViewUiDimens.paginationViewItemWidth,
-                paginationViewItemHeight = paginationViewUiDimens.paginationViewItemHeight,
-                spaceBetweenPaginationViewItems = paginationViewUiDimens.spaceBetweenPaginationViewItems,
-                paginationViewItemCornerRadius = paginationViewUiDimens.paginationViewItemCornerRadius,
-                paginationViewItemBorderStroke = paginationViewUiDimens.paginationViewItemBorderStroke
-                //
+                paginationViewDimens = paginationViewDimens
             ) { page ->
                 onPageClicked(page)
             }
+
+            Spacer(
+                modifier = Modifier.width(
+                    paginationViewDimens.spaceBetweenBackwardOrForwardItemAndPaginationViewItem
+                )
+            )
 
             BackwardOrForwardItemCompose(
                 selectedPosition = paginationState.selectedPosition,
                 itemsSize = itemsSize,
                 isBackwardIcon = false,
                 isClickAnimationEnabled = animateOnPressEvent,
-                //
-                backwardOrForwardItemContainerWidth = paginationViewUiDimens.backwardOrForwardItemContainerWidth,
-                backwardOrForwardItemContainerHeight = paginationViewUiDimens.backwardOrForwardItemContainerHeight,
-                backwardOrForwardItemWidth = paginationViewUiDimens.backwardOrForwardItemWidth,
-                backwardOrForwardItemHeight = paginationViewUiDimens.backwardOrForwardItemHeight,
-                spaceBetweenBackwardOrForwardItemAndPaginationViewItem = paginationViewUiDimens.spaceBetweenBackwardOrForwardItemAndPaginationViewItem,
-                backwardOrForwardItemCornerRadius = paginationViewUiDimens.backwardOrForwardItemCornerRadius
-                //
+                paginationViewBackwardOrForwardItemDimens = paginationViewDimens.paginationViewBackwardOrForwardItemDimens
             ) { page ->
                 onPageClicked(page)
             }
-
         }
     }
-
 }
