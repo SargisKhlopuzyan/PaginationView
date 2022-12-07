@@ -6,13 +6,8 @@ package com.sargis.khlopuzyan.pagination_view.data
 data class PaginationViewInfo(
     val pagesSize: Int,
     val selectedPage: Int,
-//    swipePagination: Int,
     val alwaysShowNumber: Boolean = false,
     val hideViewPagerInOnePageMode: Boolean = true,
     val animateOnPressEvent: Boolean,
-    val paginationViewStyle: PaginationViewStyle,
-
-    val paginationViewUiItemsMaxCount: Int,
-    val paginationViewUiItems: List<PaginationViewUiItem>
-
+    val paginationViewStyle: PaginationViewStyle
 )

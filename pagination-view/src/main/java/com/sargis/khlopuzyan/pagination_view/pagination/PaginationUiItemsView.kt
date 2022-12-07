@@ -18,6 +18,7 @@ import com.sargis.khlopuzyan.pagination_view.paginationViewUiItems.PaginationVie
 fun PaginationItemsView(
     modifier: Modifier = Modifier,
     paginationViewUiItems: List<PaginationViewUiItem>,
+    selectedPage: Int,
     animateOnPressEvent: Boolean,
     paginationViewDimens: PaginationViewDimens,
     pageClicked: (page: Int) -> Unit
@@ -36,6 +37,7 @@ fun PaginationItemsView(
                 is PaginationViewNumericUiItem -> {
                     PaginationViewNumericItem(
                         paginationViewNumericUiItem = paginationViewUiItem,
+                        isSelected = paginationViewUiItem.page == selectedPage,
                         animateOnPressEvent = animateOnPressEvent,
                         paginationViewItemDimens = paginationViewDimens.paginationViewNumericItemDimens
                     ) { page ->
@@ -48,6 +50,7 @@ fun PaginationItemsView(
                 is PaginationViewPillUiItem -> {
                     PaginationViewPillItem(
                         pillPageUiItem = paginationViewUiItem,
+                        isSelected = paginationViewUiItem.page == selectedPage,
                         animateOnPressEvent = animateOnPressEvent,
                         paginationViewItemDimens = paginationViewDimens.paginationViewPillItemDimens
                     ) { page ->

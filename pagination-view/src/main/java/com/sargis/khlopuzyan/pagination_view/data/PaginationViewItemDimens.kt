@@ -16,6 +16,6 @@ data class PaginationViewItemDimens(
     val paginationViewItemCornerRadius: Dp,
     val paginationViewItemBorderStroke: Dp,
 
-    val spaceBetweenPaginationViewItems: Dp,
+    val spaceBetweenPaginationViewItems: Dp
 
 )

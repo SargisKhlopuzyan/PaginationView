@@ -15,16 +15,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.sargis.khlopuzyan.pagination_view.R
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewBackwardOrForwardItemDimens
+import com.sargis.khlopuzyan.pagination_view.data.PaginationViewInfo
 
 /**
  * Created by Sargis Khlopuzyan on 12/5/2022.
  */
 @Composable
 fun BackwardOrForwardItemCompose(
-    selectedPage: Int,
-    pagesSize: Int,
+    paginationViewInfo: PaginationViewInfo,
     isBackwardIcon: Boolean,
-    isClickAnimationEnabled: Boolean,
     paginationViewBackwardOrForwardItemDimens: PaginationViewBackwardOrForwardItemDimens,
     backwardOrForwardItemClicked: (page: Int) -> Unit
 ) {
@@ -48,13 +47,13 @@ fun BackwardOrForwardItemCompose(
             ) {
 
                 val iconPainter = if (isBackwardIcon) {
-                    if (selectedPage == 1) {
+                    if (paginationViewInfo.selectedPage == 1) {
                         painterResource(id = R.drawable.ic_arrow_left_inactive)
                     } else {
                         painterResource(id = R.drawable.ic_arrow_left_active)
                     }
                 } else {
-                    if (selectedPage == pagesSize) {
+                    if (paginationViewInfo.selectedPage == paginationViewInfo.pagesSize) {
                         painterResource(id = R.drawable.ic_arrow_right_inactive)
                     } else {
                         painterResource(id = R.drawable.ic_arrow_right_active)
@@ -69,15 +68,15 @@ fun BackwardOrForwardItemCompose(
                     modifier = Modifier
                         .matchParentSize()
                         .clickable(
-                            indication = if (!isClickAnimationEnabled) null else LocalIndication.current,
+                            indication = if (!paginationViewInfo.animateOnPressEvent) null else LocalIndication.current,
                             interactionSource = remember {
                                 MutableInteractionSource()
                             }
                         ) {
-                            if (isBackwardIcon && selectedPage != 1) {
-                                backwardOrForwardItemClicked(selectedPage - 1)
-                            } else if (!isBackwardIcon && selectedPage != pagesSize) {
-                                backwardOrForwardItemClicked(selectedPage + 1)
+                            if (isBackwardIcon && paginationViewInfo.selectedPage != 1) {
+                                backwardOrForwardItemClicked(paginationViewInfo.selectedPage - 1)
+                            } else if (!isBackwardIcon && paginationViewInfo.selectedPage != paginationViewInfo.pagesSize) {
+                                backwardOrForwardItemClicked(paginationViewInfo.selectedPage + 1)
                             }
                         }
                 )

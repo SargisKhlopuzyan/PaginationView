@@ -46,8 +46,7 @@ fun initPaginationViewUiItems(
                     paginationViewUiItems.add(
                         PaginationViewNumericUiItem(
                             page = it,
-                            paginationViewUiItemIndex = it,
-                            isSelected = it == selectedPage
+                            paginationViewUiItemIndex = it
                         )
                     )
 
@@ -65,7 +64,6 @@ fun initPaginationViewUiItems(
                             PaginationViewNumericUiItem(
                                 page = it,
                                 paginationViewUiItemIndex = it,
-                                isSelected = it == selectedPage
                             )
                         )
 
@@ -79,7 +77,6 @@ fun initPaginationViewUiItems(
                         PaginationViewNumericUiItem(
                             page = pagesSize,
                             paginationViewUiItemIndex = paginationViewUiItemsMaxCount,
-                            isSelected = false
                         )
                     )
 
@@ -87,7 +84,7 @@ fun initPaginationViewUiItems(
                 } else if (pagesSize - selectedPage < roundUpDivision(paginationViewUiItemsMaxCount, 2)) {
 
                     paginationViewUiItems.add(
-                        PaginationViewNumericUiItem(page = 1, paginationViewUiItemIndex = 1, isSelected = false)
+                        PaginationViewNumericUiItem(page = 1, paginationViewUiItemIndex = 1)
                     )
 
                     paginationViewUiItems.add(
@@ -102,17 +99,15 @@ fun initPaginationViewUiItems(
                             PaginationViewNumericUiItem(
                                 page = it + diff,
                                 paginationViewUiItemIndex = it,
-                                isSelected = it + diff == selectedPage
                             )
                         )
-
                     }
 
                     // 1 ... 6 7 8 9 |10| 11 12 13 14 ... 20
                 } else {
 
                     paginationViewUiItems.add(
-                        PaginationViewNumericUiItem(page = 1, paginationViewUiItemIndex = 1, isSelected = false)
+                        PaginationViewNumericUiItem(page = 1, paginationViewUiItemIndex = 1)
                     )
 
                     paginationViewUiItems.add(
@@ -126,8 +121,7 @@ fun initPaginationViewUiItems(
                         paginationViewUiItems.add(
                             PaginationViewNumericUiItem(
                                 page = it + diff,
-                                paginationViewUiItemIndex = it,
-                                isSelected = it + diff == selectedPage
+                                paginationViewUiItemIndex = it
                             )
                         )
 
@@ -140,8 +134,7 @@ fun initPaginationViewUiItems(
                     paginationViewUiItems.add(
                         PaginationViewNumericUiItem(
                             page = pagesSize,
-                            paginationViewUiItemIndex = paginationViewUiItemsMaxCount,
-                            isSelected = false
+                            paginationViewUiItemIndex = paginationViewUiItemsMaxCount
                         )
                     )
 
@@ -154,8 +147,7 @@ fun initPaginationViewUiItems(
             paginationViewUiItems.add(
                 PaginationViewPillUiItem(
                     page = it,
-                    paginationViewUiItemIndex = it,
-                    isSelected = it == selectedPage
+                    paginationViewUiItemIndex = it
                 )
             )
         }
@@ -227,4 +219,3 @@ fun initPaginationViewDefaultDimens() = PaginationViewDimens(
         spaceBetweenPaginationViewItems = dimensionResource(id = R.dimen.space_between_pagination_view_items)
     )
 )
-

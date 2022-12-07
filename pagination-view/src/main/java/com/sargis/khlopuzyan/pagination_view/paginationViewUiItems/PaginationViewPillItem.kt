@@ -22,6 +22,7 @@ import com.sargis.khlopuzyan.pagination_view.data.PaginationViewPillUiItem
 fun PaginationViewPillItem(
     modifier: Modifier = Modifier,
     pillPageUiItem: PaginationViewPillUiItem,
+    isSelected: Boolean,
     animateOnPressEvent: Boolean,
     paginationViewItemDimens: PaginationViewItemDimens,
     pageClicked: (page: Int) -> Unit
@@ -46,7 +47,7 @@ fun PaginationViewPillItem(
                 shape = RoundedCornerShape(paginationViewItemDimens.paginationViewItemCornerRadius)
             )
             .background(
-                if (pillPageUiItem.isSelected) {
+                if (isSelected) {
                     Color.Black
                 } else {
                     Color.Transparent
@@ -58,7 +59,7 @@ fun PaginationViewPillItem(
                     MutableInteractionSource()
                 }
             ) {
-                if (!pillPageUiItem.isSelected) {
+                if (!isSelected) {
                     pageClicked(pillPageUiItem.page)
                 }
             })

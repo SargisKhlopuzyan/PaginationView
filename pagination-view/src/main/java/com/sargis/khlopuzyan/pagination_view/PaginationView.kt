@@ -14,7 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewDimens
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewInfo
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewStyle
-import com.sargis.khlopuzyan.pagination_view.data.SwipeDirection
 import com.sargis.khlopuzyan.pagination_view.pagination.PaginationItemsViewWithBackwardAndForward
 import com.sargis.khlopuzyan.pagination_view.util.calculatePaginationViewUiItemsMaxCount
 import com.sargis.khlopuzyan.pagination_view.util.initPaginationViewDefaultDimens
@@ -28,16 +27,8 @@ fun PaginationView(
     modifier: Modifier = Modifier
         .height(dimensionResource(id = R.dimen.pagination_View_height))
         .fillMaxWidth(),
-    pagesSize: Int,
-    selectedPage: Int = 1,
-    swipePagination: SwipeDirection = SwipeDirection.NON,
-    alwaysShowNumber: Boolean = false,
-    hideViewPagerInOnePageMode: Boolean = true,
-    animateOnPressEvent: Boolean = false,
-    paginationViewStyle: PaginationViewStyle,
-
+    paginationViewInfo: PaginationViewInfo,
     paginationViewDimens: PaginationViewDimens = initPaginationViewDefaultDimens(),
-
     onPageClicked: (pageNumber: Int) -> Unit
 ) {
 
@@ -62,9 +53,9 @@ fun PaginationView(
 
         if (paginationViewWidth >= 0) {
 
-            val paginationViewUiItemsMaxCount = if (pagesSize == 0) {
+            val paginationViewUiItemsMaxCount = if (paginationViewInfo.pagesSize == 0) {
                 0
-            } else if (pagesSize > 5 || alwaysShowNumber) {
+            } else if (paginationViewInfo.pagesSize > 5 || paginationViewInfo.alwaysShowNumber) {
                 calculatePaginationViewUiItemsMaxCount(
                     containerWidth = paginationViewWidth,
                     paginationViewItemContainerWidth = paginationViewDimens.paginationViewNumericItemDimens.paginationViewItemContainerWidth.value,
@@ -83,25 +74,15 @@ fun PaginationView(
             }
 
             val paginationViewUiItems = initPaginationViewUiItems(
-                pagesSize = pagesSize,
-                alwaysShowNumber = alwaysShowNumber,
+                pagesSize = paginationViewInfo.pagesSize,
+                alwaysShowNumber = paginationViewInfo.alwaysShowNumber,
                 paginationViewUiItemsMaxCount = paginationViewUiItemsMaxCount,
-                selectedPage = selectedPage
-            )
-
-            val paginationViewInfo = PaginationViewInfo(
-                pagesSize,
-                selectedPage,
-                alwaysShowNumber,
-                hideViewPagerInOnePageMode,
-                animateOnPressEvent,
-                paginationViewStyle,
-                paginationViewUiItemsMaxCount,
-                paginationViewUiItems
+                selectedPage = paginationViewInfo.selectedPage
             )
 
             PaginationItemsViewWithBackwardAndForward(
                 paginationViewInfo = paginationViewInfo,
+                paginationViewUiItems = paginationViewUiItems,
                 paginationViewDimens = paginationViewDimens,
                 onPageClicked = { page ->
                     onPageClicked(page)
@@ -116,8 +97,15 @@ fun PaginationView(
 fun PaginationViewPreview() {
     MaterialTheme {
         PaginationView(
-            paginationViewStyle = PaginationViewStyle.PACKED,
-            pagesSize = 4
+            paginationViewInfo = PaginationViewInfo(
+                pagesSize = 4,
+                selectedPage = 1,
+                //    swipePagination: Int,
+                alwaysShowNumber = false,
+                hideViewPagerInOnePageMode = true,
+                animateOnPressEvent = false,
+                paginationViewStyle = PaginationViewStyle.SPREAD,
+            )
         ) { _ ->
 
         }

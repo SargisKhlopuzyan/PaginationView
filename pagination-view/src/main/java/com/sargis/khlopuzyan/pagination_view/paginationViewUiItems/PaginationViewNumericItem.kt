@@ -27,6 +27,7 @@ import com.sargis.khlopuzyan.pagination_view.theme.PaginationViewNumericItemText
 fun PaginationViewNumericItem(
     modifier: Modifier = Modifier,
     paginationViewNumericUiItem: PaginationViewNumericUiItem,
+    isSelected: Boolean,
     animateOnPressEvent: Boolean,
     paginationViewItemDimens: PaginationViewItemDimens,
     pageClicked: (page: Int) -> Unit
@@ -44,7 +45,7 @@ fun PaginationViewNumericItem(
                 .border(
                     border = BorderStroke(
                         width = paginationViewItemDimens.paginationViewItemBorderStroke,
-                        color = if (paginationViewNumericUiItem.isSelected) {
+                        color = if (isSelected) {
                             Color.Black
                         } else {
                             Color.Transparent
@@ -61,7 +62,7 @@ fun PaginationViewNumericItem(
                         MutableInteractionSource()
                     }
                 ) {
-                    if (!paginationViewNumericUiItem.isSelected) {
+                    if (!isSelected) {
                         pageClicked(paginationViewNumericUiItem.page)
                     }
                 }

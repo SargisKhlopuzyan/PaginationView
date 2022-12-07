@@ -9,8 +9,7 @@ sealed class PaginationViewUiItem {
 
 data class PaginationViewNumericUiItem(
     val page: Int,
-    override val paginationViewUiItemIndex: Int,
-    var isSelected: Boolean = false
+    override val paginationViewUiItemIndex: Int
 ) : PaginationViewUiItem()
 
 data class PaginationViewDotUiItem(
@@ -19,12 +18,5 @@ data class PaginationViewDotUiItem(
 
 data class PaginationViewPillUiItem(
     val page: Int,
-    override val paginationViewUiItemIndex: Int,
-    var isSelected: Boolean = false
+    override val paginationViewUiItemIndex: Int
 ) : PaginationViewUiItem()
-
-
-data class PaginationState(
-    val selectedPage: Int,
-    val paginationViewUiItems: List<PaginationViewUiItem>
-)
