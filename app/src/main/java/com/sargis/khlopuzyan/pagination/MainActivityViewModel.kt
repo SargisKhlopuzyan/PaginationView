@@ -3,7 +3,6 @@ package com.sargis.khlopuzyan.pagination
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewInfo
-import com.sargis.khlopuzyan.pagination_view.data.PaginationViewStyle
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,33 +13,28 @@ import kotlinx.coroutines.launch
  */
 class MainActivityViewModel : ViewModel() {
 
-    val _pages = MutableStateFlow(
-        listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21)
-    )
-
-    val pages = _pages.asStateFlow()
-
+    // Demo
     private var _paginationViewInfo = MutableStateFlow(
         PaginationViewInfo(
-            pagesSize = pages.value.size,
-            selectedPage = 2,
-            alwaysShowNumber = false,
-            hideViewPagerInOnePageMode = true,
-            animateOnPressEvent = false,
-            paginationViewStyle = PaginationViewStyle.SPREAD
+            pagesSize = 8,
+            selectedPage = 3,
+            paginationViewItemsMaxCount = null,
+            paginationViewPillItemsMaxCount = 10
         )
     )
-
     var paginationViewInfo = _paginationViewInfo.asStateFlow()
 
     init {
         viewModelScope.launch {
             delay(4000)
-            _pages.value = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
-            _paginationViewInfo.value = paginationViewInfo.value.copy(pagesSize = pages.value.size)
-
+            _paginationViewInfo.value =
+                paginationViewInfo.value.copy(pagesSize = 15, selectedPage = 8)
             delay(3000)
-            _paginationViewInfo.value = paginationViewInfo.value.copy(selectedPage = 3)
+            _paginationViewInfo.value =
+                paginationViewInfo.value.copy(pagesSize = 88, selectedPage = 33)
+            delay(3000)
+            _paginationViewInfo.value =
+                paginationViewInfo.value.copy(pagesSize = 40, selectedPage = 1)
         }
     }
 

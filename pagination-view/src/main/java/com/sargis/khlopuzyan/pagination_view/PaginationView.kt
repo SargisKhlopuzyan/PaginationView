@@ -13,7 +13,6 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewDimens
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewInfo
-import com.sargis.khlopuzyan.pagination_view.data.PaginationViewStyle
 import com.sargis.khlopuzyan.pagination_view.pagination.PaginationItemsViewWithBackwardAndForward
 import com.sargis.khlopuzyan.pagination_view.util.calculatePaginationViewUiItemsMaxCount
 import com.sargis.khlopuzyan.pagination_view.util.initPaginationViewDefaultDimens
@@ -45,39 +44,42 @@ fun PaginationView(
                 vertical = paginationViewDimens.paginationViewVerticalSpace
             )
             .onGloballyPositioned { coordinates ->
-                if (paginationViewWidth < 0) {
+                if (paginationViewInfo.paginationViewItemsMaxCount == null && paginationViewWidth < 0) {
                     paginationViewWidth = coordinates.size.width / density
                 }
             }
     ) {
-
-        if (paginationViewWidth >= 0) {
-
-            val paginationViewUiItemsMaxCount = if (paginationViewInfo.pagesSize == 0) {
-                0
-            } else if (paginationViewInfo.pagesSize > 5 || paginationViewInfo.alwaysShowNumber) {
-                calculatePaginationViewUiItemsMaxCount(
-                    containerWidth = paginationViewWidth,
-                    paginationViewItemContainerWidth = paginationViewDimens.paginationViewNumericItemDimens.paginationViewItemContainerWidth.value,
-                    backwardOrForwardItemContainerWidth = paginationViewDimens.paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemContainerWidth.value,
-                    spaceBetweenPaginationViewItems = paginationViewDimens.spaceBetweenPaginationViewItems.value,
-                    spaceBetweenBackwardOrForwardItemAndPaginationViewItem = paginationViewDimens.spaceBetweenBackwardOrForwardItemAndPaginationViewItem.value
-                )
-            } else {
-                calculatePaginationViewUiItemsMaxCount(
-                    containerWidth = paginationViewWidth,
-                    paginationViewItemContainerWidth = paginationViewDimens.paginationViewPillItemDimens.paginationViewItemContainerWidth.value,
-                    backwardOrForwardItemContainerWidth = paginationViewDimens.paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemContainerWidth.value,
-                    spaceBetweenPaginationViewItems = paginationViewDimens.spaceBetweenPaginationViewItems.value,
-                    spaceBetweenBackwardOrForwardItemAndPaginationViewItem = paginationViewDimens.spaceBetweenBackwardOrForwardItemAndPaginationViewItem.value
-                )
-            }
+        if (paginationViewInfo.paginationViewItemsMaxCount != null || paginationViewWidth >= 0) {
+            val paginationViewUiItemsMaxCount =
+                if (paginationViewInfo.paginationViewItemsMaxCount == null) {
+                    if (paginationViewInfo.isAlwaysNumeric || paginationViewInfo.pagesSize > paginationViewInfo.paginationViewPillItemsMaxCount) {
+                        calculatePaginationViewUiItemsMaxCount(
+                            containerWidth = paginationViewWidth,
+                            paginationViewItemContainerWidth = paginationViewDimens.paginationViewNumericItemDimens.paginationViewItemContainerWidth.value,
+                            backwardOrForwardItemContainerWidth = paginationViewDimens.paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemContainerWidth.value,
+                            spaceBetweenPaginationViewItems = paginationViewDimens.spaceBetweenPaginationViewItems.value,
+                            spaceBetweenBackwardOrForwardItemAndPaginationViewItem = paginationViewDimens.spaceBetweenBackwardOrForwardItemAndPaginationViewItem.value
+                        )
+                    } else {
+                        calculatePaginationViewUiItemsMaxCount(
+                            containerWidth = paginationViewWidth,
+                            paginationViewItemContainerWidth = paginationViewDimens.paginationViewPillItemDimens.paginationViewItemContainerWidth.value,
+                            backwardOrForwardItemContainerWidth = paginationViewDimens.paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemContainerWidth.value,
+                            spaceBetweenPaginationViewItems = paginationViewDimens.spaceBetweenPaginationViewItems.value,
+                            spaceBetweenBackwardOrForwardItemAndPaginationViewItem = paginationViewDimens.spaceBetweenBackwardOrForwardItemAndPaginationViewItem.value
+                        )
+                    }
+                } else {
+                    if (paginationViewInfo.isAlwaysNumeric || paginationViewInfo.pagesSize > paginationViewInfo.paginationViewPillItemsMaxCount) {
+                        paginationViewInfo.paginationViewItemsMaxCount
+                    } else {
+                        paginationViewInfo.paginationViewPillItemsMaxCount
+                    }
+                }
 
             val paginationViewUiItems = initPaginationViewUiItems(
-                pagesSize = paginationViewInfo.pagesSize,
-                alwaysShowNumber = paginationViewInfo.alwaysShowNumber,
-                paginationViewUiItemsMaxCount = paginationViewUiItemsMaxCount,
-                selectedPage = paginationViewInfo.selectedPage
+                paginationViewInfo = paginationViewInfo,
+                paginationViewUiItemsMaxCount = paginationViewUiItemsMaxCount
             )
 
             PaginationItemsViewWithBackwardAndForward(
@@ -99,14 +101,9 @@ fun PaginationViewPreview() {
         PaginationView(
             paginationViewInfo = PaginationViewInfo(
                 pagesSize = 4,
-                selectedPage = 1,
-                //    swipePagination: Int,
-                alwaysShowNumber = false,
-                hideViewPagerInOnePageMode = true,
-                animateOnPressEvent = false,
-                paginationViewStyle = PaginationViewStyle.SPREAD,
+                selectedPage = 1
             )
-        ) { _ ->
+        ) {
 
         }
     }

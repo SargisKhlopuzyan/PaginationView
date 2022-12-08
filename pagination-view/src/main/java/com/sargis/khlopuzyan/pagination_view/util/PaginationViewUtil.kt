@@ -25,23 +25,21 @@ fun calculatePaginationViewUiItemsMaxCount(
 }
 
 fun initPaginationViewUiItems(
-    pagesSize: Int,
-    alwaysShowNumber: Boolean,
-    paginationViewUiItemsMaxCount: Int,
-    selectedPage: Int
+    paginationViewInfo: PaginationViewInfo,
+    paginationViewUiItemsMaxCount: Int
 ): List<PaginationViewUiItem> {
 
     val paginationViewUiItems = mutableListOf<PaginationViewUiItem>()
 
-    if (pagesSize == 0) {
+    if (paginationViewInfo.pagesSize == 0) {
         return paginationViewUiItems
     }
 
-    if (pagesSize > 5 || alwaysShowNumber) {
+    if (paginationViewInfo.isAlwaysNumeric || paginationViewInfo.pagesSize > paginationViewInfo.paginationViewPillItemsMaxCount) {
         when {
-            pagesSize <= paginationViewUiItemsMaxCount -> {
+            paginationViewInfo.pagesSize <= paginationViewUiItemsMaxCount -> {
 
-                (1..pagesSize).forEach {
+                (1..paginationViewInfo.pagesSize).forEach {
 
                     paginationViewUiItems.add(
                         PaginationViewNumericUiItem(
@@ -56,7 +54,7 @@ fun initPaginationViewUiItems(
             else -> {
 
                 // 1 2 3 4 5 6 |7| 8 9 10 11 ... 20
-                if (selectedPage <= roundUpDivision(paginationViewUiItemsMaxCount, 2)) {
+                if (paginationViewInfo.selectedPage <= roundUpDivision(paginationViewUiItemsMaxCount, 2)) {
 
                     (1..paginationViewUiItemsMaxCount - 2).forEach {
 
@@ -75,13 +73,17 @@ fun initPaginationViewUiItems(
 
                     paginationViewUiItems.add(
                         PaginationViewNumericUiItem(
-                            page = pagesSize,
+                            page = paginationViewInfo.pagesSize,
                             paginationViewUiItemIndex = paginationViewUiItemsMaxCount,
                         )
                     )
 
                     // 1 ... 10 11 12 13 |14| 15 16 17 18 19 20
-                } else if (pagesSize - selectedPage < roundUpDivision(paginationViewUiItemsMaxCount, 2)) {
+                } else if (paginationViewInfo.pagesSize - paginationViewInfo.selectedPage < roundUpDivision(
+                        paginationViewUiItemsMaxCount,
+                        2
+                    )
+                ) {
 
                     paginationViewUiItems.add(
                         PaginationViewNumericUiItem(page = 1, paginationViewUiItemIndex = 1)
@@ -91,14 +93,14 @@ fun initPaginationViewUiItems(
                         PaginationViewDotUiItem(paginationViewUiItemIndex = 2)
                     )
 
-                    val diff = pagesSize - paginationViewUiItemsMaxCount
+                    val diff = paginationViewInfo.pagesSize - paginationViewUiItemsMaxCount
 
                     (3..paginationViewUiItemsMaxCount).forEach {
 
                         paginationViewUiItems.add(
                             PaginationViewNumericUiItem(
                                 page = it + diff,
-                                paginationViewUiItemIndex = it,
+                                paginationViewUiItemIndex = it
                             )
                         )
                     }
@@ -114,7 +116,7 @@ fun initPaginationViewUiItems(
                         PaginationViewDotUiItem(paginationViewUiItemIndex = 2)
                     )
 
-                    val diff = selectedPage - paginationViewUiItemsMaxCount / 2 - 1
+                    val diff = paginationViewInfo.selectedPage - paginationViewUiItemsMaxCount / 2 - 1
 
                     (3..paginationViewUiItemsMaxCount - 2).forEach {
 
@@ -133,7 +135,7 @@ fun initPaginationViewUiItems(
 
                     paginationViewUiItems.add(
                         PaginationViewNumericUiItem(
-                            page = pagesSize,
+                            page = paginationViewInfo.pagesSize,
                             paginationViewUiItemIndex = paginationViewUiItemsMaxCount
                         )
                     )
@@ -142,8 +144,7 @@ fun initPaginationViewUiItems(
             }
         }
     } else {
-        (1..if (paginationViewUiItemsMaxCount > pagesSize) pagesSize else paginationViewUiItemsMaxCount).forEach {
-
+        (1..if (paginationViewUiItemsMaxCount > paginationViewInfo.pagesSize) paginationViewInfo.pagesSize else paginationViewUiItemsMaxCount).forEach {
             paginationViewUiItems.add(
                 PaginationViewPillUiItem(
                     page = it,

@@ -50,12 +50,12 @@ fun DefaultPreview() {
             paginationViewInfo = PaginationViewInfo(
                 pagesSize = 4,
                 selectedPage = 1,
-                alwaysShowNumber = false,
+                isAlwaysNumeric = false,
                 hideViewPagerInOnePageMode = true,
                 animateOnPressEvent = false,
                 paginationViewStyle = PaginationViewStyle.SPREAD
             )
-        ) { _ ->
+        ) {
 
         }
     }

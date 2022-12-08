@@ -6,8 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sargis.khlopuzyan.pagination_view.backwardOrForwardItem.BackwardOrForwardItemCompose
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewDimens
-import com.sargis.khlopuzyan.pagination_view.data.PaginationViewInfo
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewStyle
+import com.sargis.khlopuzyan.pagination_view.data.PaginationViewInfo
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewUiItem
 
 /**
