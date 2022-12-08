@@ -5,13 +5,13 @@ import androidx.compose.ui.unit.Dp
 /**
  * Created by Sargis Khlopuzyan on 12/6/2022.
  */
-data class PaginationViewDimens(
+data class PaginationViewResources(
 
-    val paginationViewBackwardOrForwardItemDimens: PaginationViewBackwardOrForwardItemDimens,
+    val paginationViewBackwardOrForwardItemResources: PaginationViewBackwardOrForwardItemResources,
 
-    val paginationViewNumericItemDimens: PaginationViewItemDimens,
-    val paginationViewDotItemDimens: PaginationViewItemDimens,
-    val paginationViewPillItemDimens: PaginationViewItemDimens,
+    val paginationViewNumericItemResources: PaginationViewItemResources,
+    val paginationViewDotItemResources: PaginationViewItemResources,
+    val paginationViewPillItemResources: PaginationViewItemResources,
 
     val paginationViewHeight: Dp,
     val paginationViewHorizontalSpace: Dp,

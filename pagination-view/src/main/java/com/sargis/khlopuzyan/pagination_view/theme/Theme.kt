@@ -51,8 +51,6 @@ fun PaginationTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compos
     )
 }
 
-
-
 val DinFont = FontFamily(
     Font(R.font.din_regular, weight = FontWeight.Normal),
     Font(R.font.din_medium, weight = FontWeight.Medium),

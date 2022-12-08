@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import com.sargis.khlopuzyan.pagination_view.data.PaginationViewItemDimens
+import com.sargis.khlopuzyan.pagination_view.data.PaginationViewItemResources
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewNumericUiItem
 import com.sargis.khlopuzyan.pagination_view.theme.PaginationViewNumericItemText
 
@@ -29,32 +29,32 @@ fun PaginationViewNumericItem(
     paginationViewNumericUiItem: PaginationViewNumericUiItem,
     isSelected: Boolean,
     animateOnPressEvent: Boolean,
-    paginationViewItemDimens: PaginationViewItemDimens,
+    paginationViewItemResources: PaginationViewItemResources,
     pageClicked: (page: Int) -> Unit
 ) {
     Box(
         modifier = modifier
-            .height(paginationViewItemDimens.paginationViewItemContainerHeight)
-            .width(paginationViewItemDimens.paginationViewItemContainerWidth),
+            .height(paginationViewItemResources.paginationViewItemContainerHeight)
+            .width(paginationViewItemResources.paginationViewItemContainerWidth),
         contentAlignment = Alignment.Center
     ) {
         Box(
             modifier = modifier
-                .height(paginationViewItemDimens.paginationViewItemHeight)
-                .width(paginationViewItemDimens.paginationViewItemWidth)
+                .height(paginationViewItemResources.paginationViewItemHeight)
+                .width(paginationViewItemResources.paginationViewItemWidth)
                 .border(
                     border = BorderStroke(
-                        width = paginationViewItemDimens.paginationViewItemBorderStroke,
+                        width = paginationViewItemResources.paginationViewItemBorderStroke,
                         color = if (isSelected) {
                             Color.Black
                         } else {
                             Color.Transparent
                         }
                     ),
-                    shape = RoundedCornerShape(paginationViewItemDimens.paginationViewItemCornerRadius)
+                    shape = RoundedCornerShape(paginationViewItemResources.paginationViewItemCornerRadius)
                 )
                 .clip(
-                    shape = RoundedCornerShape(paginationViewItemDimens.paginationViewItemCornerRadius)
+                    shape = RoundedCornerShape(paginationViewItemResources.paginationViewItemCornerRadius)
                 )
                 .clickable(
                     indication = if (!animateOnPressEvent) null else LocalIndication.current,

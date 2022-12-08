@@ -5,7 +5,7 @@ import androidx.compose.ui.unit.Dp
 /**
  * Created by Sargis Khlopuzyan on 12/6/2022.
  */
-data class PaginationViewItemDimens(
+data class PaginationViewItemResources(
 
     val paginationViewItemContainerWidth: Dp,
     val paginationViewItemContainerHeight: Dp,

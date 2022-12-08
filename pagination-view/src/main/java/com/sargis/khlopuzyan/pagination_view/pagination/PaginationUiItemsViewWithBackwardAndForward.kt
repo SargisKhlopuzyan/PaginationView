@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sargis.khlopuzyan.pagination_view.backwardOrForwardItem.BackwardOrForwardItemCompose
-import com.sargis.khlopuzyan.pagination_view.data.PaginationViewDimens
+import com.sargis.khlopuzyan.pagination_view.data.PaginationViewResources
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewStyle
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewInfo
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewUiItem
@@ -17,7 +17,7 @@ import com.sargis.khlopuzyan.pagination_view.data.PaginationViewUiItem
 fun PaginationItemsViewWithBackwardAndForward(
     paginationViewInfo: PaginationViewInfo,
     paginationViewUiItems: List<PaginationViewUiItem>,
-    paginationViewDimens: PaginationViewDimens,
+    paginationViewResources: PaginationViewResources,
     onPageClicked: (pageNumber: Int) -> Unit
 ) {
 
@@ -40,14 +40,14 @@ fun PaginationItemsViewWithBackwardAndForward(
             BackwardOrForwardItemCompose(
                 paginationViewInfo = paginationViewInfo,
                 isBackwardIcon = true,
-                paginationViewBackwardOrForwardItemDimens = paginationViewDimens.paginationViewBackwardOrForwardItemDimens
+                paginationViewBackwardOrForwardItemResources = paginationViewResources.paginationViewBackwardOrForwardItemResources
             ) { page ->
                 onPageClicked(page)
             }
 
             Spacer(
                 modifier = Modifier.width(
-                    paginationViewDimens.spaceBetweenBackwardOrForwardItemAndPaginationViewItem
+                    paginationViewResources.spaceBetweenBackwardOrForwardItemAndPaginationViewItem
                 )
             )
 
@@ -64,21 +64,21 @@ fun PaginationItemsViewWithBackwardAndForward(
                 paginationViewUiItems = paginationViewUiItems,
                 selectedPage = paginationViewInfo.selectedPage,
                 animateOnPressEvent = paginationViewInfo.animateOnPressEvent,
-                paginationViewDimens = paginationViewDimens
+                paginationViewResources = paginationViewResources
             ) { page ->
                 onPageClicked(page)
             }
 
             Spacer(
                 modifier = Modifier.width(
-                    paginationViewDimens.spaceBetweenBackwardOrForwardItemAndPaginationViewItem
+                    paginationViewResources.spaceBetweenBackwardOrForwardItemAndPaginationViewItem
                 )
             )
 
             BackwardOrForwardItemCompose(
                 paginationViewInfo = paginationViewInfo,
                 isBackwardIcon = false,
-                paginationViewBackwardOrForwardItemDimens = paginationViewDimens.paginationViewBackwardOrForwardItemDimens
+                paginationViewBackwardOrForwardItemResources = paginationViewResources.paginationViewBackwardOrForwardItemResources
             ) { page ->
                 onPageClicked(page)
             }

@@ -13,8 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import com.sargis.khlopuzyan.pagination_view.R
-import com.sargis.khlopuzyan.pagination_view.data.PaginationViewBackwardOrForwardItemDimens
+import com.sargis.khlopuzyan.pagination_view.data.PaginationViewBackwardOrForwardItemResources
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewInfo
 
 /**
@@ -24,7 +23,7 @@ import com.sargis.khlopuzyan.pagination_view.data.PaginationViewInfo
 fun BackwardOrForwardItemCompose(
     paginationViewInfo: PaginationViewInfo,
     isBackwardIcon: Boolean,
-    paginationViewBackwardOrForwardItemDimens: PaginationViewBackwardOrForwardItemDimens,
+    paginationViewBackwardOrForwardItemResources: PaginationViewBackwardOrForwardItemResources,
     backwardOrForwardItemClicked: (page: Int) -> Unit
 ) {
     Row(
@@ -33,30 +32,30 @@ fun BackwardOrForwardItemCompose(
 
         Box(
             modifier = Modifier
-                .height(paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemContainerHeight)
-                .width(paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemContainerWidth),
+                .height(paginationViewBackwardOrForwardItemResources.backwardOrForwardItemContainerHeight)
+                .width(paginationViewBackwardOrForwardItemResources.backwardOrForwardItemContainerWidth),
             contentAlignment = Alignment.Center
         ) {
             Box(
                 modifier = Modifier
-                    .height(paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemHeight)
-                    .width(paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemWidth)
+                    .height(paginationViewBackwardOrForwardItemResources.backwardOrForwardItemHeight)
+                    .width(paginationViewBackwardOrForwardItemResources.backwardOrForwardItemWidth)
                     .clip(
-                        shape = RoundedCornerShape(paginationViewBackwardOrForwardItemDimens.backwardOrForwardItemCornerRadius)
+                        shape = RoundedCornerShape(paginationViewBackwardOrForwardItemResources.backwardOrForwardItemCornerRadius)
                     )
             ) {
 
                 val iconPainter = if (isBackwardIcon) {
                     if (paginationViewInfo.selectedPage == 1) {
-                        painterResource(id = R.drawable.ic_arrow_left_inactive)
+                        painterResource(id =paginationViewBackwardOrForwardItemResources.backwardInactiveIconResId)
                     } else {
-                        painterResource(id = R.drawable.ic_arrow_left_active)
+                        painterResource(id = paginationViewBackwardOrForwardItemResources.backwardActiveIconResId)
                     }
                 } else {
                     if (paginationViewInfo.selectedPage == paginationViewInfo.pagesSize) {
-                        painterResource(id = R.drawable.ic_arrow_right_inactive)
+                        painterResource(id = paginationViewBackwardOrForwardItemResources.forwardInactiveIconResId)
                     } else {
-                        painterResource(id = R.drawable.ic_arrow_right_active)
+                        painterResource(id = paginationViewBackwardOrForwardItemResources.forwardActiveIconResId)
                     }
                 }
 

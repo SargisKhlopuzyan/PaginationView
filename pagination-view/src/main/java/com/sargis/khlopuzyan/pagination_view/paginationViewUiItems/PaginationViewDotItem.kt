@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import com.sargis.khlopuzyan.pagination_view.data.PaginationViewItemDimens
+import com.sargis.khlopuzyan.pagination_view.data.PaginationViewItemResources
 import com.sargis.khlopuzyan.pagination_view.theme.PaginationViewNumericItemText
 
 /**
@@ -18,18 +18,18 @@ import com.sargis.khlopuzyan.pagination_view.theme.PaginationViewNumericItemText
 @Composable
 fun PaginationViewDotItem(
     modifier: Modifier = Modifier,
-    paginationViewItemDimens: PaginationViewItemDimens
+    paginationViewItemResources: PaginationViewItemResources
 ) {
     Box(
         modifier = modifier
-            .width(paginationViewItemDimens.paginationViewItemContainerWidth)
-            .height(paginationViewItemDimens.paginationViewItemContainerHeight),
+            .width(paginationViewItemResources.paginationViewItemContainerWidth)
+            .height(paginationViewItemResources.paginationViewItemContainerHeight),
         contentAlignment = Alignment.Center
     ) {
         Box(
             modifier = modifier
-                .width(paginationViewItemDimens.paginationViewItemWidth)
-                .height(paginationViewItemDimens.paginationViewItemHeight)
+                .width(paginationViewItemResources.paginationViewItemWidth)
+                .height(paginationViewItemResources.paginationViewItemHeight)
         ) {
             Text(
                 modifier = Modifier

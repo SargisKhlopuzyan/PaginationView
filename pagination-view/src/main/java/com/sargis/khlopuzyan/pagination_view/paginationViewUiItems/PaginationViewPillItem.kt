@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import com.sargis.khlopuzyan.pagination_view.data.PaginationViewItemDimens
+import com.sargis.khlopuzyan.pagination_view.data.PaginationViewItemResources
 import com.sargis.khlopuzyan.pagination_view.data.PaginationViewPillUiItem
 
 /**
@@ -24,27 +24,27 @@ fun PaginationViewPillItem(
     pillPageUiItem: PaginationViewPillUiItem,
     isSelected: Boolean,
     animateOnPressEvent: Boolean,
-    paginationViewItemDimens: PaginationViewItemDimens,
+    paginationViewItemResources: PaginationViewItemResources,
     pageClicked: (page: Int) -> Unit
 ) {
     Box(
         modifier = modifier
-            .width(paginationViewItemDimens.paginationViewItemContainerWidth)
-            .height(paginationViewItemDimens.paginationViewItemContainerHeight),
+            .width(paginationViewItemResources.paginationViewItemContainerWidth)
+            .height(paginationViewItemResources.paginationViewItemContainerHeight),
         contentAlignment = Alignment.Center
     ) {
         Box(modifier = modifier
-            .width(paginationViewItemDimens.paginationViewItemWidth)
-            .height(paginationViewItemDimens.paginationViewItemHeight)
+            .width(paginationViewItemResources.paginationViewItemWidth)
+            .height(paginationViewItemResources.paginationViewItemHeight)
             .border(
                 border = BorderStroke(
-                    width = paginationViewItemDimens.paginationViewItemBorderStroke,
+                    width = paginationViewItemResources.paginationViewItemBorderStroke,
                     color = Color.Black
                 ),
-                shape = RoundedCornerShape(paginationViewItemDimens.paginationViewItemCornerRadius)
+                shape = RoundedCornerShape(paginationViewItemResources.paginationViewItemCornerRadius)
             )
             .clip(
-                shape = RoundedCornerShape(paginationViewItemDimens.paginationViewItemCornerRadius)
+                shape = RoundedCornerShape(paginationViewItemResources.paginationViewItemCornerRadius)
             )
             .background(
                 if (isSelected) {

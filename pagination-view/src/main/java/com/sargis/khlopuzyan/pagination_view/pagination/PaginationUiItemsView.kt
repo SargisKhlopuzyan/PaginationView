@@ -20,7 +20,7 @@ fun PaginationItemsView(
     paginationViewUiItems: List<PaginationViewUiItem>,
     selectedPage: Int,
     animateOnPressEvent: Boolean,
-    paginationViewDimens: PaginationViewDimens,
+    paginationViewResources: PaginationViewResources,
     pageClicked: (page: Int) -> Unit
 ) {
     Row(
@@ -30,7 +30,7 @@ fun PaginationItemsView(
         (paginationViewUiItems.indices).forEach {
 
             if (paginationViewUiItems.size > 1 && paginationViewUiItems[it].paginationViewUiItemIndex != 1) {
-                Spacer(modifier = Modifier.width(paginationViewDimens.spaceBetweenPaginationViewItems / 2))
+                Spacer(modifier = Modifier.width(paginationViewResources.spaceBetweenPaginationViewItems / 2))
             }
 
             when (val paginationViewUiItem: PaginationViewUiItem = paginationViewUiItems[it]) {
@@ -39,20 +39,20 @@ fun PaginationItemsView(
                         paginationViewNumericUiItem = paginationViewUiItem,
                         isSelected = paginationViewUiItem.page == selectedPage,
                         animateOnPressEvent = animateOnPressEvent,
-                        paginationViewItemDimens = paginationViewDimens.paginationViewNumericItemDimens
+                        paginationViewItemResources = paginationViewResources.paginationViewNumericItemResources
                     ) { page ->
                         pageClicked(page)
                     }
                 }
                 is PaginationViewDotUiItem -> {
-                    PaginationViewDotItem(paginationViewItemDimens = paginationViewDimens.paginationViewDotItemDimens)
+                    PaginationViewDotItem(paginationViewItemResources = paginationViewResources.paginationViewDotItemResources)
                 }
                 is PaginationViewPillUiItem -> {
                     PaginationViewPillItem(
                         pillPageUiItem = paginationViewUiItem,
                         isSelected = paginationViewUiItem.page == selectedPage,
                         animateOnPressEvent = animateOnPressEvent,
-                        paginationViewItemDimens = paginationViewDimens.paginationViewPillItemDimens
+                        paginationViewItemResources = paginationViewResources.paginationViewPillItemResources
                     ) { page ->
                         pageClicked(page)
                     }
@@ -60,7 +60,7 @@ fun PaginationItemsView(
             }
 
             if (paginationViewUiItems.size > 1 && paginationViewUiItems[it].paginationViewUiItemIndex != paginationViewUiItems.size) {
-                Spacer(modifier = Modifier.width(paginationViewDimens.spaceBetweenPaginationViewItems / 2))
+                Spacer(modifier = Modifier.width(paginationViewResources.spaceBetweenPaginationViewItems / 2))
             }
         }
     }

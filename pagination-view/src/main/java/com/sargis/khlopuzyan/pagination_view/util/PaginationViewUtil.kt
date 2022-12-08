@@ -158,7 +158,7 @@ fun initPaginationViewUiItems(
 }
 
 @Composable
-fun initPaginationViewDefaultDimens() = PaginationViewDimens(
+fun initPaginationViewDefaultResources() = PaginationViewResources(
 
     // PAGINATION VIEW
     paginationViewHeight = dimensionResource(id = R.dimen.pagination_View_height),
@@ -168,7 +168,7 @@ fun initPaginationViewDefaultDimens() = PaginationViewDimens(
     spaceBetweenBackwardOrForwardItemAndPaginationViewItem = dimensionResource(id = R.dimen.space_between_backward_or_forward_item_and_pagination_view_item),
 
     // BACKWARD or FORWARD ITEM
-    paginationViewBackwardOrForwardItemDimens = PaginationViewBackwardOrForwardItemDimens(
+    paginationViewBackwardOrForwardItemResources = PaginationViewBackwardOrForwardItemResources(
         backwardOrForwardItemContainerWidth = dimensionResource(id = R.dimen.backward_or_forward_item_container_width),
         backwardOrForwardItemContainerHeight = dimensionResource(id = R.dimen.backward_or_forward_item_container_height),
 
@@ -179,7 +179,7 @@ fun initPaginationViewDefaultDimens() = PaginationViewDimens(
     ),
 
     // PAGINATION VIEW NUMERIC ITEM
-    paginationViewNumericItemDimens = PaginationViewItemDimens(
+    paginationViewNumericItemResources = PaginationViewItemResources(
         paginationViewItemWidth = dimensionResource(id = R.dimen.pagination_view_numeric_item_width),
         paginationViewItemHeight = dimensionResource(id = R.dimen.pagination_view_numeric_item_height),
 
@@ -193,7 +193,7 @@ fun initPaginationViewDefaultDimens() = PaginationViewDimens(
     ),
 
     // PAGINATION VIEW DOT ITEM
-    paginationViewDotItemDimens = PaginationViewItemDimens(
+    paginationViewDotItemResources = PaginationViewItemResources(
         paginationViewItemWidth = dimensionResource(id = R.dimen.pagination_view_numeric_item_width),
         paginationViewItemHeight = dimensionResource(id = R.dimen.pagination_view_numeric_item_height),
 
@@ -207,7 +207,7 @@ fun initPaginationViewDefaultDimens() = PaginationViewDimens(
     ),
 
     // PAGINATION VIEW PILL ITEM
-    paginationViewPillItemDimens = PaginationViewItemDimens(
+    paginationViewPillItemResources = PaginationViewItemResources(
         paginationViewItemContainerWidth = dimensionResource(id = R.dimen.pagination_view_pill_item_container_width),
         paginationViewItemContainerHeight = dimensionResource(id = R.dimen.pagination_view_pill_item_container_height),
 
